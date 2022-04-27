@@ -12,6 +12,7 @@
             integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="../css/registerForm.css">
+    <script src="../js/validationRegisterProperty.js" defer></script>
     <script src="../js/registerProperty.js" defer></script>
 </head>
 
@@ -28,7 +29,7 @@
     <div class="row text-center pt-4">
         <h3>Registrar Inmueble</h3>
     </div>
-    <form action="" class="form-container needs-validation" novalidate>
+    <form class="form-container needs-validation" novalidate>
         
         <div class="mb-3 mt-3 my-row ">
             <div class="col-md-3 sm-auto pe-2 ">
@@ -127,11 +128,9 @@
         </div>
 
         <div class="mb-3 mt-3 text-center">
-            <button type="submit" onclick="registerProperty()" class="btn text-white" style="background-color: #0AA2C0 ;">Registrar</button>
+            <button onclick="registerProperty()" class="btn text-white" style="background-color: #0AA2C0 ;">Registrar</button>
         </div>
     </form>
 </div>
-<h2 id="test"></h2>
-<script src="../js/validationRegisterProperty.js"></script>
 </body>
 </html>
