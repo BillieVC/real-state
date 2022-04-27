@@ -29,7 +29,8 @@
     let value = e.target.value;
     e.target.value = value.replace(/[^A-Za-z0-9 ]/g, "");
   });
-  document.getElementById("addres").addEventListener("input", (e) => {
+  document.getElementById("address").addEventListener("input", (e) => {
     let value = e.target.value;
     e.target.value = value.replace(/[^A-Za-z0-9 ]/g, "");
   });
+  
