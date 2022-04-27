@@ -7,9 +7,21 @@ async function registerProperty() {
     formData.append("department", document.getElementById("department").value);
     formData.append("zone", document.getElementById("zone").value);
     formData.append("address", document.getElementById("address").value);
-    formData.append("multipartFile", document.getElementById("formFile").files[0]);
-    const request = await fetch("properties/save", {
-        method: "POST", body: formData
-    });
-
+    let file = document.getElementById("formFile").files[0];
+    if(file!==undefined){
+        formData.append("multipartFile", file);
+    }
+    fetch("properties/save", {
+        method: "POST", body: formData,
+        charset: "UTF-8"
+    }).then((response)=>{
+        if(!response.ok) {
+            return response.text().then(text => { throw new Error(text) })
+        }
+        else {
+            return response.json();
+        }
+    }).catch((error) => {
+            console.error(error)
+        });
 }
