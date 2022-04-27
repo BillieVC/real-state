@@ -7,7 +7,6 @@ import com.example.agile.realstate.realstate.domain.PropertyType;
 import com.example.agile.realstate.realstate.dto.PropertyDto;
 import com.example.agile.realstate.realstate.dto.request.PropertyRequest;
 import com.example.agile.realstate.realstate.dto.response.PropertyResponse;
-import com.example.agile.realstate.realstate.exception.BadRequestException;
 import com.example.agile.realstate.realstate.mapper.PropertyMapper;
 import com.example.agile.realstate.realstate.service.IPhotographService;
 import com.example.agile.realstate.realstate.service.IPropertyService;
