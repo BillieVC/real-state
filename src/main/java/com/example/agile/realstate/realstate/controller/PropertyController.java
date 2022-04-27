@@ -5,6 +5,7 @@ import com.example.agile.realstate.realstate.dto.response.PropertyResponse;
 import com.example.agile.realstate.realstate.usecase.CreatePropertyUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,4 +22,6 @@ public class PropertyController {
     public PropertyResponse saveProperty(@ModelAttribute PropertyRequest propertyRequest) {
         return createPropertyUseCase.execute(propertyRequest);
     }
+
+
 }

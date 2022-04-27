@@ -1,0 +1,24 @@
+.button{
+   background-color: #087990;
+   width: 150px;
+   margin-left: 0.5cm;
+   margin-right: 0.5cm; 
+}
+.text{
+    width: 50px;
+    color:#545454;
+}
+.navbarStyle{
+    width: 100%;
+    height: 58px;
+}
+.pading{
+    padding-left: 2cm;
+    padding-right: 2cm;
+}
+.transition-content{
+    transition: box-shadow 0.2s;
+}
+.transition-content:hover {
+    box-shadow: 4px 4px 4px 4px rgb(70, 70, 70);
+}
