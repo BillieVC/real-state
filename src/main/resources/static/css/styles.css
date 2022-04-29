@@ -12,10 +12,6 @@
     width: 100%;
     height: 58px;
 }
-.pading{
-    padding-left: 2cm;
-    padding-right: 2cm;
-}
 .transition-content{
     transition: box-shadow 0.2s;
 }
