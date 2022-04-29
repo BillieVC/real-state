@@ -94,8 +94,8 @@
         <div class="mb-3 mt-3 my-row">
             <div class="col-md-3 sm-auto pe-2"><label for="zone" class="form-label text-end">*Zona:</label></div>
             <div class="col-md-9 sm-auto"><input type="text" class="form-control input-text" id="zone"
-                                                 placeholder="" name="zone" pattern="[a-zA-Z0-9 ]{5,250}" required>
-                                                 <div class="invalid-feedback">El campo Zona es requerido, la zona tiene que tener entre 10 a 250 caracteres.</div>
+                                                 placeholder="" name="zone" pattern="[a-zA-Z0-9 ]{5,50}" required>
+                                                 <div class="invalid-feedback">El campo Zona es requerido, la zona tiene que tener entre 5 a 50 caracteres.</div>
             </div>
                                                 
         </div>
@@ -117,13 +117,13 @@
                 <label for="title" class="form-label text-end" >*Dirección:</label>
             </div>
             <div class="col-md-9 sm-auto">
-                <input type="text" class="form-control input-text" id="address" placeholder="" name="title" pattern="[a-zA-Z0-9 ]{10,250}" required>
-            <div class="invalid-feedback">El campo Dirección es requerido, la dirección tiene que tener entre 10 a 250 caracteres.</div>
+                <input type="text" class="form-control input-text" id="address" placeholder="" name="title" pattern="[a-zA-Z0-9 ]{5,150}" required>
+            <div class="invalid-feedback">El campo Dirección es requerido, la dirección tiene que tener entre 5 a 150 caracteres.</div>
             </div>
         </div>
         <div class="mb-3 mt-3 my-row">
-            <div class="col-md-3 sm-auto pe-2"><label for="formFile" class="form-label text-end">*Fotografía:</label></div>
-            <div class="col-md-9 sm-auto"><input class="form-control input-text" type="file" id="formFile" required>
+            <div class="col-md-3 sm-auto pe-2"><label for="formFile" class="form-label text-end">Fotografía:</label></div>
+            <div class="col-md-9 sm-auto"><input class="form-control input-text" type="file" id="formFile">
                 <div class="invalid-feedback">Debe subir una foto</div></div>
             
         </div>

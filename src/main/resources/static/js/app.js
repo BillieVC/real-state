@@ -29,8 +29,19 @@ async function changePage(page) {
     let srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
     document.querySelector('#mycards').remove();
 
+    if(props.length===0){
+        document.querySelector(".pagination-container").setAttribute("hidden","true");
+        document.querySelector("#listingTable").innerHTML = "<h1>No existen ofertas diponibles por el momento</h1>"
+    }
+
+    let sortedList = (props.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.publicationDate) - new Date(a.publicationDate);
+      }));
+
     for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) {
-        let prop = props[i];
+        let prop = sortedList[i];
         if (prop !== undefined) {
             srcImg = await getFiles(prop.id);
             let card = await loadProperty(prop, srcImg);
@@ -106,11 +117,11 @@ async function loadProperty(prop, srcImg) {
         '                            <p class="card-text">'+prop.propertyType+'</p>' +
         '                        </div>' +
         '                        <div class="col-4">' +
-        '                            <h5>'+prop.price+'</h5>' +
+        '                            <h5>'+prop.price+'Bs.</h5>' +
         '                        </div>' +
         '                    </div>' +
         '                    <div class="pt-3">' +
-        '                       <h6 >'+prop.zone+'</h6>' +
+        '                       <h6 >'+prop.zone+', '+prop.propertyDepartment.replace("_"," ")+'</h6>' +
         '                    </div>' +
         '                    </div>' +          
         '                    </ul>' +
