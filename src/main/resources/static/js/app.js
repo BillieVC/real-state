@@ -99,7 +99,8 @@ async function loadProperty(prop, srcImg) {
     let cardHtml = 
         '           <div class="col">\n' +
         '                <div class="card mt-3 mb-3" style="width: 350px;">' +
-        '                    <img src=' + srcImg + 'class="card-img-top">' +
+        '                    <img src ='+srcImg+
+        '                           class="card-img-top" alt="...">' +
         '                    <div class="card-body">' +
         '                    <h5 class="card-title">'+prop.title+'</h5>' +
         '                    <div class="row">' +
