@@ -22,6 +22,19 @@ form.addEventListener('submit', handleForm);
 
 async function registerPropertyPost() {
   let flag = true;
+  let fileEle = document.querySelector("#formFile");
+  let file = document.getElementById("formFile").files[0];
+  if(file){
+    if(file.type!=="image/jpg" && file.type!=="image/jpeg" && file.type!=="image/png"){
+      fileEle.classList.add("is-invalid");
+      fileEle.classList.remove("is-valid");
+      flag=false;
+    }else {
+      fileEle.classList.add("is-valid");
+      fileEle.classList.remove("is-invalid");
+    }
+  }
+
   var forms = document.querySelectorAll('.needs-validation')
   // Loop over them and prevent submission
   Array.prototype.slice.call(forms)

@@ -14,51 +14,58 @@
     <link rel="stylesheet" href="css/registerForm.css">
     <script src="js/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="js/validationRegisterProperty.js" defer></script>
-    <script src="./js/app.js"></script>
 
 </head>
 
 <body>
-    
-    <nav class="navbar navbar-dark" style="background-color: #087990;">
-        <div class="container">
-          <a class="navbar-brand" href="index.html">INMOBILIARIA CENTURY</a>
-        </div>
-      </nav>
+
+<nav class="navbar navbar-dark" style="background-color: #087990;">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">INMOBILIARIA CENTURY</a>
+    </div>
+</nav>
 <div class="main-container">
 
     <div class="row text-center pt-4">
         <h3>Registrar Inmueble</h3>
     </div>
     <form id="myForm" class="form-container needs-validation" novalidate>
-        
+
         <div class="mb-3 mt-3 my-row ">
             <div class="col-md-3 sm-auto pe-2 ">
-                <label for="title" class="form-label text-end" >*Título:</label>
+                <label for="title" class="form-label text-end">*Título:</label>
             </div>
             <div class="col-md-9 sm-auto">
-                <input type="text" class="form-control input-text" id="title" placeholder="" name="title" pattern="[a-zA-Z0-9 ]{4,25}" required>
-            <div class="invalid-feedback">El campo Título es requerido, el título tiene que tener entre 4 a 25 caracteres.</div>
+                <input type="text" class="form-control input-text" id="title" placeholder="" name="title"
+                       pattern="[a-zA-Z0-9 ]{4,25}" required>
+                <div class="invalid-feedback">El campo Título es requerido, el título tiene que tener entre 4 a 25
+                    caracteres.
+                </div>
             </div>
         </div>
 
 
         <div class="mb-3 mt-3 my-row ">
             <div class="col-md-3 sm-auto pe-2">
-                <label for="description text-end" class="form-label" >*Descripción:</label>
+                <label for="description text-end" class="form-label">*Descripción:</label>
             </div>
             <div class="col-md-9 sm-auto">
                 <textarea class="form-control "
-                                                    id="description" rows="3" placeholder=""
-                                                    name="description" pattern="[a-zA-Z0-9 ]{10,250}" minlength="10" maxlength="250" required></textarea>
-                <div class="invalid-feedback">La campo Descripción es requerido, la descripción tiene que tener entre 10 a 250 caracteres.</div>
+                          id="description" rows="3" placeholder=""
+                          name="description" pattern="[a-zA-Z0-9 ]{10,250}" minlength="10" maxlength="250"
+                          required></textarea>
+                <div class="invalid-feedback">La campo Descripción es requerido, la descripción tiene que tener entre 10
+                    a 250 caracteres.
+                </div>
             </div>
         </div>
 
 
         <div class="mb-3 mt-3 my-row">
-            <div class="col-md-3 sm-auto pe-2"><label for="typeProperty" class="form-label text-end">*Tipo:</label></div>
-            <div class="col-md-9 sm-auto"><select class="form-select" name="typeProperty" id="typeProperty" placeholder="Selecciona un Tipo de inmueble" required>
+            <div class="col-md-3 sm-auto pe-2"><label for="typeProperty" class="form-label text-end">*Tipo:</label>
+            </div>
+            <div class="col-md-9 sm-auto"><select class="form-select" name="typeProperty" id="typeProperty"
+                                                  placeholder="Selecciona un Tipo de inmueble" required>
                 <option value="">Selecciona un tipo de inmueble</option>
                 <option value="DEPARTAMENTO">Departamento</option>
                 <option value="VIVIENDA">Vivienda</option>
@@ -69,11 +76,13 @@
                 <option value="INDUSTRIAL">Industrial</option>
                 <option value="OTROS">Otros</option>
             </select>
-            <div class="invalid-feedback">Debe seleccionar una opción válida.</div></div>
-            
+                <div class="invalid-feedback">Debe seleccionar una opción válida.</div>
+            </div>
+
         </div>
         <div class="mb-3 mt-3 my-row">
-            <div class="col-md-3 sm-auto pe-2"><label for="department" class="form-label text-end">*Departamento:</label>
+            <div class="col-md-3 sm-auto pe-2"><label for="department"
+                                                      class="form-label text-end">*Departamento:</label>
             </div>
             <div class="col-md-9 sm-auto"><select class="form-select" id="department" required>
                 <option value="">Debe seleccionar una opción</option>
@@ -87,51 +96,63 @@
                 <option value="BENI">Beni</option>
                 <option value="SANTA_CRUZ">Santa Cruz</option>
             </select>
-            <div class="invalid-feedback">Debe seleccionar una opción válida.</div></div>
-            
+                <div class="invalid-feedback">Debe seleccionar una opción válida.</div>
+            </div>
+
         </div>
 
         <div class="mb-3 mt-3 my-row">
             <div class="col-md-3 sm-auto pe-2"><label for="zone" class="form-label text-end">*Zona:</label></div>
             <div class="col-md-9 sm-auto"><input type="text" class="form-control input-text" id="zone"
                                                  placeholder="" name="zone" pattern="[a-zA-Z0-9 ]{5,50}" required>
-                                                 <div class="invalid-feedback">El campo Zona es requerido, la zona tiene que tener entre 5 a 50 caracteres.</div>
+                <div class="invalid-feedback">El campo Zona es requerido, la zona tiene que tener entre 5 a 50
+                    caracteres.
+                </div>
             </div>
-                                                
+
         </div>
 
 
         <div class="mb-3 mt-3 my-row ">
-            <div class="col-md-3 sm-auto pe-2"><label for="price" class="form-label text-end">*Precio Ref. (Bs):</label></div>
+            <div class="col-md-3 sm-auto pe-2"><label for="price" class="form-label text-end">*Precio Ref. (Bs):</label>
+            </div>
             <div class="col-md-9 sm-auto"><input type="number" class="form-control input-text" id="price"
-                                                 placeholder="" name="price" min="0" max="999999"  required>
-                                                 <div class="invalid-feedback">El campo Precio es requerido.</div>
-                                                </div>
-                                                 
-        </div>
+                                                 placeholder="" name="price" min="0" max="999999" required>
+                <div class="invalid-feedback">El campo Precio es requerido.</div>
+            </div>
 
+        </div>
 
 
         <div class="mb-3 mt-3 my-row ">
             <div class="col-md-3 sm-auto pe-2 ">
-                <label for="title" class="form-label text-end" >*Dirección:</label>
+                <label for="title" class="form-label text-end">*Dirección:</label>
             </div>
             <div class="col-md-9 sm-auto">
-                <input type="text" class="form-control input-text" id="address" placeholder="" name="title" pattern="[a-zA-Z0-9 ]{5,150}" required>
-            <div class="invalid-feedback">El campo Dirección es requerido, la dirección tiene que tener entre 5 a 150 caracteres.</div>
+                <input type="text" class="form-control input-text" id="address" placeholder="" name="title"
+                       pattern="[a-zA-Z0-9 ]{5,150}" required>
+                <div class="invalid-feedback">El campo Dirección es requerido, la dirección tiene que tener entre 5 a
+                    150 caracteres.
+                </div>
             </div>
         </div>
-        <div class="mb-3 mt-3 my-row">
-            <div class="col-md-3 sm-auto pe-2"><label for="formFile" class="form-label text-end">Fotografía:</label></div>
-            <div class="col-md-9 sm-auto"><input class="form-control input-text" type="file" id="formFile">
-                <div class="invalid-feedback">Debe subir una foto</div></div>
-            
+
+    </form>
+    <div class="mb-3 mt-3 my-row">
+        <div class="col-md-3 sm-auto pe-2"><label for="formFile" class="form-label text-end">Fotografía:</label>
+        </div>
+        <div class="col-md-9 sm-auto"><input class="form-control" type="file" id="formFile"
+                                             name="myFile" aria-describedby="validateFileFeedback">
+            <div id="validateFileFeedback" class="invalid-feedback">Solo se aceptan imagenes con extensión: .jpg, .jpeg, .png</div>
         </div>
 
-        <div class="mb-3 mt-3 text-center">
-            <button id="registerButton" onclick="registerPropertyPost()" class="btn text-white" style="background-color: #0AA2C0 ;">Registrar</button>
-        </div>
-    </form>
+    </div>
+
+    <div class="mb-3 mt-3 text-center">
+        <button id="registerButton" onclick="registerPropertyPost()" class="btn text-white"
+                style="background-color: #0AA2C0 ;">Registrar
+        </button>
+    </div>
 </div>
 </body>
 </html>
