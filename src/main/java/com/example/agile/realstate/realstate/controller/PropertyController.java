@@ -36,4 +36,5 @@ public class PropertyController {
     	return getOffersUseCase.execute();
     }
 
+
 }

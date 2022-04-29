@@ -1,17 +1,24 @@
-var current_page = 1;
-var records_per_page = 9;
+console.log("<<<CARGADO>>>");
+const propertiesContainer = document.querySelector(".properties-container");
+let cards = '<div>HOLA</div>';
 
-async function prevPage() {
-    if (current_page > 1) {
-        current_page--;
-        await changePage(current_page);
-    }
+const lista=[];
+let srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+
+async function fetchProperties(){
+    const request = await fetch(`http://localhost:9091/properties/offers`,{
+        method: 'GET',
+        headers: getHeaders()
+    });
+    const property = await request.json();
+    return property;   
 }
 
-async function nextPage() {
-    if (current_page < await numPages()) {
-        current_page++;
-        await changePage(current_page);
+async function listProperties(lista){
+    for(let i = 1; i <= lista.length; i++){
+        console.log("HOLA");
+        console.log(lista[i]);           
+     
     }
 }
 
@@ -38,7 +45,8 @@ async function changePage(page) {
         }
     }
     let div = document.createElement('div');
-    div.setAttribute('class', 'properties-container row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 pading');  
+    div.setAttribute('class', 'properties-container row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 pading');
+    
     div.setAttribute('id', 'mycards');
     document.querySelector('#listingTable').appendChild(div);
     let div2 = document.createElement('div');
@@ -60,66 +68,30 @@ async function changePage(page) {
     }
 }
 
-async function numPages() {
-    let myLength = await getProperty();
-    return Math.ceil(myLength.length / records_per_page);
-}
-
-window.onload = async function () {
-    await changePage(1);
-};
-
-async function getProperty() {
-    const request = await fetch('/properties/offers', {
-        method: 'GET',
-        headers: getHeaders()
-    });
-    const property = await request.json();
-    console.log(property);
-    return property;
-}
-
-async function getFiles(propertyId) {
-    const requestFiles = await fetch('/photographs/' + propertyId, {
-        method: 'GET',
-        headers: getHeaders()
-    });
-    const files = await requestFiles.json();
-    var srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
-    if (files.photographs.length > 0) {
-        const fileObj = files.photographs[0];
-        console.log(fileObj);
-        srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;
-    }
-    return srcImg;
-}
-
-async function loadProperty(prop, srcImg) {
-
+async function createProperty(property){
     let cardHtml = 
         '           <div class="col">\n' +
         '                <div class="card mt-3 mb-3" style="width: 350px;">' +
-        '                    <img src=' + srcImg + 'class="card-img-top">' +
+        '                    <img src=' + srcImg + 'class="card-img-top" alt="...">' +
         '                    <div class="card-body">' +
-        '                    <h5 class="card-title">'+prop.title+'</h5>' +
+        '                    <h5 class="card-title">'+property.titulo+'</h5>' +
         '                    <div class="row">' +
         '                        <div class="col-8">' +
-        '                            <p class="card-text">'+prop.propertyType+'</p>' +
+        '                            <p class="card-text">'+property.propertyType+'</p>' +
         '                        </div>' +
         '                        <div class="col-4">' +
-        '                            <h5>'+prop.price+'</h5>' +
+        '                            <h5>'+property.price+'</h5>' +
         '                        </div>' +
         '                    </div>' +
         '                    <div class="pt-3">' +
-        '                       <h6 >'+prop.zone+'</h6>' +
+        '                       <h6 >'+property.localidad+'</h6>' +
         '                    </div>' +
         '                    </div>' +          
         '                    </ul>' +
-        '                    <p class="m-0 list-group-item">'+prop.publicationDate+'</p>' +
+        '                    <p class="m-0 list-group-item">'+property.publicationDate+'/p>' +
         '                </div>' +
         '            </div>';
     return cardHtml;
-
 }
 
 function getHeaders() {
@@ -128,3 +100,14 @@ function getHeaders() {
         'Content-Type': 'application/json'
     };
 }
+
+window.onload = async function () {
+    let data =  await fetchProperties();
+    for(let i of data){          
+        lista.push(i);
+    }
+    console.log(lista);
+    await changePage(1);
+};
+
+
