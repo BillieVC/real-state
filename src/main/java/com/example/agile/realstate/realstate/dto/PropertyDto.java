@@ -20,4 +20,5 @@ public class PropertyDto {
     private String zone;
     private Date publicationDate;
     private PropertyStatus status;
+    private String address;
 }
