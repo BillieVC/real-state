@@ -1,12 +1,38 @@
 console.log("Service");
-const OfferDetail = document.querySelector("#offerDetail");
 
-let div = createDetail();
-console.log(div);
-let div2 = document.createElement('div');
-document.querySelector("#offerDetail").appendChild(div2);
-document.querySelector("#offerDetail").innerHTML = "<h1>No existen ofertas diponibles por el momento</h1>"
-OfferDetail.innerHTML = div;
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
+var anuncioParam = urlParams.get('id');
+console.log(anuncioParam);
+let property;
+
+
+async function getProperty() {
+    const request = await fetch('http://localhost:9091/properties/21',{
+        method: 'GET',
+        headers: getHeaders()
+    });
+    const property = await request.json();   
+    return property;
+}
+window.onload = async function () {
+    console.log(getProperty());
+    property = getProperty();
+    console.log(property);
+
+};
+
+//http://localhost:9091/properties/21
+//const OfferDetail = document.querySelector("#offerDetail");
+
+//let div = createDetail();
+//console.log(div);
+//let div2 = document.createElement('div');
+//document.querySelector("#offerDetail").appendChild(div2);
+//document.querySelector("#offerDetail").innerHTML = "<h1>No existen ofertas diponibles por el momento</h1>"
+//OfferDetail.innerHTML = div;
+
+
 
 function createDetail(){
     let cardHtml = 
@@ -38,4 +64,11 @@ function createDetail(){
         '    </div>'+
         '</div>'
     return cardHtml;
+}
+
+function getHeaders() {
+    return {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    };
 }
