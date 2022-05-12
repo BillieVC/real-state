@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PhotographServiceImpl implements IPhotographService{
-    private PhotographRepository photographRepository;
+public class PhotographServiceImpl implements IPhotographService {
+    private final PhotographRepository photographRepository;
 
     public PhotographServiceImpl(PhotographRepository photographRepository) {
         this.photographRepository = photographRepository;
