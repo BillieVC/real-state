@@ -107,7 +107,7 @@ async function loadProperty(prop, srcImg) {
 
     let cardHtml = 
         '           <div class="col">\n' +
-        '                <div class="card mt-3 mb-3 transition-content" style="cursor: pointer; width: 350px;" >' +
+        '                <div class="card mt-3 mb-3 transition-content" style="cursor: pointer; width: 350px;" onclick = "redirectionPageOfferDetail('+ prop.id +')" p-id="'+prop.id +'" >' +
         '                    <img src ='+srcImg+
         '                           class="card-img-top" alt="..." height="230" width="250">' +
         '                    <div class="card-body">' +
@@ -130,6 +130,11 @@ async function loadProperty(prop, srcImg) {
         '            </div>';
     return cardHtml;
 
+}
+
+function redirectionPageOfferDetail(id){
+
+    window.location.href = "offerDetail.html?id="+ id;
 }
 
 function getHeaders() {
