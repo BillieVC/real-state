@@ -109,7 +109,7 @@ async function loadProperty(prop, srcImg) {
         '           <div class="col">\n' +
         '                <div class="card mt-3 mb-3 transition-content" style="cursor: pointer; width: 350px;" onclick = "redirectionPageOfferDetail('+ prop.id +')" p-id="'+prop.id +'" >' +
         '                    <img src ='+srcImg+
-        '                           class="card-img-top" alt="..." height="230" width="250">' +
+        '                           class="card-img-top" alt="..." loading="lazy" height="230" width="250">' +
         '                    <div class="card-body">' +
         '                    <h5 class="card-title">'+prop.title+'</h5>' +
         '                    <div class="row">' +
