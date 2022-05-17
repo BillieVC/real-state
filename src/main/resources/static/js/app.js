@@ -1,6 +1,8 @@
 var current_page = 1;
 var records_per_page = 9;
 
+    
+
 async function prevPage() {
     if (current_page > 1) {
         current_page--;
@@ -19,6 +21,7 @@ async function changePage(page) {
     var btn_next = document.getElementById("btn_next");
     var btn_prev = document.getElementById("btn_prev");
     var page_span = document.getElementById("page");
+
     let cards = '';
 
     // Validate page
@@ -40,6 +43,9 @@ async function changePage(page) {
         return new Date(b.publicationDate) - new Date(a.publicationDate);
       }));
 
+    
+    //let filterTypeList = sortedList.filter(property => property.typeOffer = DE)
+
     for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) {
         let prop = sortedList[i];
         if (prop !== undefined) {
@@ -48,6 +54,7 @@ async function changePage(page) {
             cards += card;
         }
     }
+
     let div = document.createElement('div');
     div.setAttribute('class', 'properties-container row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 pading');  
     div.setAttribute('id', 'mycards');
@@ -142,4 +149,79 @@ function getHeaders() {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
+}
+
+
+
+async function changePageWithfilter(page,typeOffer) {
+
+    var btn_next = document.getElementById("btn_next");
+    var btn_prev = document.getElementById("btn_prev");
+    var page_span = document.getElementById("page");
+
+    document.getElementById('btn_next').setAttribute=( "onclick","alert('prueba');");
+
+    let cards = '';
+
+    // Validate page
+    let props = await getProperty();
+    let srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+    document.querySelector('#mycards').remove();
+
+    
+
+    let sortedList = (props.sort(function(a,b){
+        // Turn your strings into dates, and then subtract them
+        // to get a value that is either negative, positive, or zero.
+        return new Date(b.publicationDate) - new Date(a.publicationDate);
+      }));
+
+    
+    let filterTypeList = sortedList.filter(property => property.propertyType == typeOffer);
+    
+    if (page < 1) page = 1;
+    if (page > Math.ceil(filterTypeList.length / records_per_page)) page = Math.ceil(filterTypeList.length / records_per_page);
+      console.log(page);
+    if(filterTypeList.length===0){
+        document.querySelector(".pagination-container").setAttribute("hidden","true");
+        document.querySelector("#listingTable").innerHTML = "<h1>No existen ofertas diponibles por el momento</h1>"
+    }
+
+    for (var i = (page - 1) * records_per_page; i < (page * records_per_page); i++) {
+        let prop = filterTypeList[i];
+        if (prop !== undefined) {
+            srcImg = await getFiles(prop.id);
+            let card = await loadProperty(prop, srcImg);
+            cards += card;
+        }
+    }
+
+    let div = document.createElement('div');
+    div.setAttribute('class', 'properties-container row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1 pading');  
+    div.setAttribute('id', 'mycards');
+    document.querySelector('#listingTable').appendChild(div);
+    let div2 = document.createElement('div');
+    document.querySelector('#mycards').appendChild(div2);
+    document.querySelector('#mycards').innerHTML = cards;
+
+    page_span.innerHTML = page;
+
+    if (page === 1 ) {
+        btn_prev.style.visibility = "hidden";
+    } else {
+        btn_prev.style.visibility = "visible";
+    }
+
+    if (page === await Math.ceil(filterTypeList.length / records_per_page)) {
+        btn_next.style.visibility = "hidden";
+    } else {
+        btn_next.style.visibility = "visible";
+    }
+    
+    //btn_next.style.visibility = "visible";
+}
+
+
+function UpdatePageWithFilter(typeOffer){
+    changePageWithfilter(page,typeOffer);
 }
