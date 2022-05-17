@@ -27,29 +27,33 @@
 </nav>
 
 <div class="container p-3 pagination-container">
-    <div class="row  justify-content-cente">
-        <div class="col-4"></div>
-        <button  onclick='prevPage()' class=" col-1 button col btn text-light text-center" id="btn_prev">Anterior</button>
-        <a class="text-center text page-link" id="page"></a>
-        <button onclick='nextPage()' class="button col-1 btn text-light text-center" id="btn_next">Siguiente</button>
-        <div class="col-1"></div>
-        <div class="col-1 dropdown">
-            <button class="btn btn-secondary dropdown-toggle dropdownS" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Tipo de Inmueble
+    <div class="row  justify-content-center">
+            <div class="col-auto">
+                <div class="row" id="pages-container">
+            <button onclick='prevPage()' class=" col-1 button col btn text-light text-center" id="btn_prev">Anterior
+            </button>
+            <a class="text-center text page-link" id="page"></a>
+            <button onclick='nextPage()' class="button col-1 btn text-light text-center" id="btn_next">Siguiente
+            </button>
+                </div>
+            </div>
+        <div class="col-auto dropdown" id="dropdown-container">
+            <button class="btn btn-secondary dropdown-toggle dropdownS" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Tipo de Inmueble
             </button>
             <ul class=" dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#" onclick='changePage(1)'>Todos</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("DEPARTAMENTO")'>Departamento</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("VIVIENDA")'>Vivienda</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("DORMITORIO")'>Dormitorio</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("OFICINA")'>Oficina</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("TIENDA")'>Tienda</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("COMERCIAL")'>Comercial</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("LOTE")'>Lote</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("INDUSTRIAL")'>Industrial</a></li>
-              <li><a class="dropdown-item" href="#" onclick='UpdatePageWithFilter("OTROS")'>Otros</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1, "TODOS")'>Todos</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"DEPARTAMENTO")'>Departamento</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"VIVIENDA")'>Vivienda</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"DORMITORIO")'>Dormitorio</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"OFICINA")'>Oficina</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1, "TIENDA_COMERCIAL")'>Tienda Comercial</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"LOTE")'>Lote</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"INDUSTRIAL")'>Industrial</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"OTROS")'>Otros</a></li>
             </ul>
-          </div>
+        </div>
     </div>
 </div>
 
