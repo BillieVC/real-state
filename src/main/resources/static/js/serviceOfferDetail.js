@@ -13,7 +13,6 @@ var property = async function getProperty(id) {
 }
 
 window.onload = async function () {
-    console.log(urlParams.get(id));
     if (!urlParams.get(id)) {
         document.getElementById('offerDetail').innerHTML =
             `<div class="row justify-content-center""> 
@@ -61,7 +60,7 @@ function createDetail(prop, src) {
         '    <div class="row pt-5">' +
         '        <div class="col-6 text-center">' +
         '            <img src=' + src + ' width="420px">' +
-        '            <h5 class="text-muted">' + prop.propertyDto.zone + '/' + prop.propertyDto.propertyDepartment + '</h5>' +
+        '            <h5 class="text-muted">' + prop.propertyDto.zone + '/' + prop.propertyDto.propertyDepartment.replace("_", " ") + '</h5>' +
         '        </div>' +
         '            <div class="col-6 pt-2 ">' +
         '            <div class="row">' +
@@ -74,7 +73,7 @@ function createDetail(prop, src) {
         '            </div>   ' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Tipo de Imnueble:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.propertyType + '</div>' +
+        '                <div class="col-8">' + prop.propertyDto.propertyType.replace("_"," ") + '</div>' +
         '            </div>   ' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Direccíon:</h5></div>' +
