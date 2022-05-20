@@ -65,7 +65,7 @@ function createDetail(prop, src) {
         '            <div class="col-6 pt-2 ">' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Precio:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.price + '</div>' +
+        '                <div class="col-8">' + prop.propertyDto.price + ' Bs.</div>' +
         '            </div>' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Descripción:</h5></div>' +
@@ -76,7 +76,7 @@ function createDetail(prop, src) {
         '                <div class="col-8">' + prop.propertyDto.propertyType.replace("_"," ") + '</div>' +
         '            </div>   ' +
         '            <div class="row">' +
-        '                <div class="col-4"><h5>Direccíon:</h5></div>' +
+        '                <div class="col-4"><h5>Dirección:</h5></div>' +
         '                <div class="col-8">' + prop.propertyDto.address + '</div>' +
         '            </div>' +
         '        </div>' +
