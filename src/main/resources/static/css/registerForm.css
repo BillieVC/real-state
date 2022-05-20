@@ -1,0 +1,23 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+.main-container{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    align-self: center;
+}
+.my-row{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.form-container{
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    resize: none;
+}

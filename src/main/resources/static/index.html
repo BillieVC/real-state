@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INMOBILIARIA</title>
+
+    <script src="js/app.js" defer></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark" style="background-color: #087990;">
+    <div class="container">
+        <a class="navbar-brand" href="index.html">INMOBILIARIA CENTURY</a>
+        <button class="btn text-light" style="background-color: #0AA2C0; text-decoration: none;" type="submit"><a
+                style="text-decoration: none; color: white;" href="./registerProperty.html"> Registrar Inmueble</a>
+        </button>
+    </div>
+</nav>
+
+<div class="container p-3 pagination-container">
+    <div class="row  justify-content-center">
+            <div class="col-auto">
+                <div class="row" id="pages-container">
+            <button onclick='prevPage()' class=" col-1 button col btn text-light text-center" id="btn_prev">Anterior
+            </button>
+            <a class="text-center text page-link" id="page"></a>
+            <button onclick='nextPage()' class="button col-1 btn text-light text-center" id="btn_next">Siguiente
+            </button>
+                </div>
+            </div>
+        <div class="col-auto dropdown" id="dropdown-container">
+            <button class="btn btn-secondary dropdown-toggle dropdownS" type="button" id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                Tipo de Inmueble
+            </button>
+            <ul class=" dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="#" onclick='changePage(1, "TODOS")'>Todos</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"DEPARTAMENTO")'>Departamento</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"VIVIENDA")'>Vivienda</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"DORMITORIO")'>Dormitorio</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"OFICINA")'>Oficina</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1, "TIENDA_COMERCIAL")'>Tienda Comercial</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"LOTE")'>Lote</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"INDUSTRIAL")'>Industrial</a></li>
+                <li><a class="dropdown-item" href="#" onclick='changePage(1,"OTROS")'>Otros</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<div class="container p-3" id="listingTable">
+    <div class="properties-container row row-cols-1 row-cols-sm-2 row-cols-md-3 g-1" id="mycards">
+
+    </div>
+
+</div>
+
+
+</body>
+</html>
