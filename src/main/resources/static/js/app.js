@@ -32,7 +32,7 @@ async function changePage(page, filterType) {
     if (page > numPages()) page = numPages();
 
     if (filterType) {
-        current_page = page;
+        page = 1;
         props = await getProperty();
         document.querySelector(".pagination-container")
             .appendChild(getFilterResultsText(filterType));
@@ -47,6 +47,7 @@ async function changePage(page, filterType) {
         document.querySelector("#pages-container")
             .setAttribute("hidden", "true");
         if (filterType) {
+            current_page = 1;
             document.querySelector("#listingTable")
                 .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen ofertas disponibles por el momento para el tipo seleccionado " + filterType.replace("_", " ") + ".</h1>"
         } else {
