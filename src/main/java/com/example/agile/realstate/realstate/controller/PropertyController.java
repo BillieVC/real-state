@@ -7,26 +7,29 @@ import com.example.agile.realstate.realstate.dto.response.PropertyResponse;
 import com.example.agile.realstate.realstate.usecase.CreatePropertyUseCase;
 import com.example.agile.realstate.realstate.usecase.GetOffersUseCase;
 import com.example.agile.realstate.realstate.usecase.GetPropertyDetailsUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 import java.util.List;
+
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/properties")
 public class PropertyController {
-    @Autowired
-    private CreatePropertyUseCase createPropertyUseCase;
+    private final CreatePropertyUseCase createPropertyUseCase;
 
-    @Autowired
-    private GetOffersUseCase getOffersUseCase;
+    private final GetOffersUseCase getOffersUseCase;
 
-    @Autowired
-    private GetPropertyDetailsUseCase getPropertyDetailsUseCase;
+    private final GetPropertyDetailsUseCase getPropertyDetailsUseCase;
+
+    public PropertyController(CreatePropertyUseCase createPropertyUseCase, GetOffersUseCase getOffersUseCase,
+                              GetPropertyDetailsUseCase getPropertyDetailsUseCase) {
+        this.createPropertyUseCase = createPropertyUseCase;
+        this.getOffersUseCase = getOffersUseCase;
+        this.getPropertyDetailsUseCase = getPropertyDetailsUseCase;
+    }
 
     @RequestMapping(value = "/save", method = POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public PropertyResponse saveProperty(@ModelAttribute PropertyRequest propertyRequest) {

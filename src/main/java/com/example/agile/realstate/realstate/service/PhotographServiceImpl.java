@@ -23,9 +23,4 @@ public class PhotographServiceImpl implements IPhotographService {
     public List<Photograph> getByPropertyId(Long propertyId) {
         return photographRepository.findByPropertyId(propertyId);
     }
-
-    @Override
-    public Photograph findById(Long id) {
-        return photographRepository.findById(id).orElse(null);
-    }
 }
