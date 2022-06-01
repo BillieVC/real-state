@@ -15,9 +15,9 @@ async function prevPage() {
 }
 
 async function nextPage() {
-    if (current_page <  numPages()) {
+    if (current_page < numPages()) {
         current_page++;
-         await changePage(current_page);
+        await changePage(current_page);
     }
 }
 
@@ -32,7 +32,7 @@ async function changePage(page, filterType) {
     if (page > numPages()) page = numPages();
 
     if (filterType) {
-        current_page=page;
+        page = 1;
         props = await getProperty();
         document.querySelector(".pagination-container")
             .appendChild(getFilterResultsText(filterType));
@@ -46,8 +46,14 @@ async function changePage(page, filterType) {
     if (props.length === 0) {
         document.querySelector("#pages-container")
             .setAttribute("hidden", "true");
-        document.querySelector("#listingTable")
-            .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen ofertas diponibles por el momento</h1>"
+        if (filterType) {
+            current_page = 1;
+            document.querySelector("#listingTable")
+                .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen ofertas disponibles por el momento para el tipo seleccionado " + filterType.replace("_", " ") + ".</h1>"
+        } else {
+            document.querySelector("#listingTable")
+                .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen ofertas diponibles por el momento</h1>"
+        }
     } else {
         document.querySelector("#pages-container").removeAttribute("hidden");
         let msg = document.querySelector("#msg-no-props");

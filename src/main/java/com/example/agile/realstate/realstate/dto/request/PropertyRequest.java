@@ -1,6 +1,5 @@
 package com.example.agile.realstate.realstate.dto.request;
 
-import com.example.agile.realstate.realstate.domain.Photograph;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.lang.Nullable;
