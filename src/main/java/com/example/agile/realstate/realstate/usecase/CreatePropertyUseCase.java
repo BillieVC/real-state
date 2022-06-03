@@ -10,37 +10,40 @@ import com.example.agile.realstate.realstate.dto.response.PropertyResponse;
 import com.example.agile.realstate.realstate.mapper.PropertyMapper;
 import com.example.agile.realstate.realstate.service.IPhotographService;
 import com.example.agile.realstate.realstate.service.IPropertyService;
+import com.example.agile.realstate.realstate.utils.PhotographBuilder;
 import com.example.agile.realstate.realstate.utils.PhotographValidator;
 import com.example.agile.realstate.realstate.utils.PropertyValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-
 @Service
 public class CreatePropertyUseCase {
-    @Autowired
-    private IPropertyService propertyService;
+    private final IPropertyService propertyService;
 
-    @Autowired
-    private IPhotographService photographService;
+    private final IPhotographService photographService;
 
-    @Autowired
-    private PropertyMapper propertyMapper;
+    private final PropertyMapper propertyMapper;
 
-    @Autowired
-    private PropertyValidator propertyValidator;
-    @Autowired
-    private PhotographValidator photographValidator;
+    private final PropertyValidator propertyValidator;
+    private final PhotographValidator photographValidator;
+
+    public CreatePropertyUseCase(IPropertyService propertyService, IPhotographService photographService,
+                                 PropertyMapper propertyMapper, PropertyValidator propertyValidator,
+                                 PhotographValidator photographValidator) {
+        this.propertyService = propertyService;
+        this.photographService = photographService;
+        this.propertyMapper = propertyMapper;
+        this.propertyValidator = propertyValidator;
+        this.photographValidator = photographValidator;
+    }
 
     public PropertyResponse execute(PropertyRequest propertyRequest) {
         propertyValidator.validate(propertyRequest);
         Property property = new Property();
         property.setTitle(propertyRequest.getTitle());
         property.setDescription(propertyRequest.getDescription());
-            property.setPropertyType(PropertyType.valueOf(propertyRequest.getType()
-                    .toUpperCase().replace(" ", "_")));
+        property.setPropertyType(PropertyType.valueOf(propertyRequest.getType()
+                .toUpperCase().replace(" ", "_")));
 
 
         property.setPropertyDepartment(PropertyDepartment.valueOf(propertyRequest.getDepartment()
@@ -50,7 +53,7 @@ public class CreatePropertyUseCase {
         property.setZone(propertyRequest.getZone());
         photographValidator.validatePhotograph(propertyRequest.getMultipartFile());
         Property propertySaved = propertyService.save(property);
-        if(propertyRequest.getMultipartFile()!=null){
+        if (propertyRequest.getMultipartFile() != null) {
             photographService.save(buildPhotograph(propertyRequest.getMultipartFile(), propertySaved));
         }
         return new PropertyResponse(buildDto(propertySaved));
@@ -61,16 +64,6 @@ public class CreatePropertyUseCase {
     }
 
     private Photograph buildPhotograph(MultipartFile multipartFile, Property property) {
-        Photograph photograph = new Photograph();
-        photograph.setName(multipartFile.getOriginalFilename());
-        photograph.setMimeType(multipartFile.getContentType());
-        photograph.setSize(multipartFile.getSize());
-        photograph.setProperty(property);
-        try {
-            photograph.setValue(multipartFile.getBytes());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return photograph;
+        return new PhotographBuilder().buildPhotograph(multipartFile, property);
     }
 }

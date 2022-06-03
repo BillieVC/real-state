@@ -1,20 +1,21 @@
 package com.example.agile.realstate.realstate.usecase;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.agile.realstate.realstate.domain.Property;
 import com.example.agile.realstate.realstate.service.IPropertyService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GetOffersUseCase {
-    @Autowired
-    private IPropertyService propertyService;
+    private final IPropertyService propertyService;
 
-	public List<Property> execute() {
-		return propertyService.getAll();
-	}
+    public GetOffersUseCase(IPropertyService propertyService) {
+        this.propertyService = propertyService;
+    }
+
+    public List<Property> execute() {
+        return propertyService.getAll();
+    }
 
 }

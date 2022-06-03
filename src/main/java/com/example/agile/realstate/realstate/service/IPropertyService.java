@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IPropertyService {
     Property save(Property property);
-    List<Property>getAll();
+
+    List<Property> getAll();
+
     Property findById(Long id);
-    void deleteById(Long id);
 }

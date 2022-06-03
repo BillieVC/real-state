@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PropertyServiceImpl implements IPropertyService{
-    private PropertyRepository propertyRepository;
+public class PropertyServiceImpl implements IPropertyService {
+    private final PropertyRepository propertyRepository;
 
     public PropertyServiceImpl(PropertyRepository propertyRepository) {
         this.propertyRepository = propertyRepository;
@@ -27,10 +27,5 @@ public class PropertyServiceImpl implements IPropertyService{
     @Override
     public Property findById(Long id) {
         return propertyRepository.findById(id).orElse(null);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        propertyRepository.deleteById(id);
     }
 }
