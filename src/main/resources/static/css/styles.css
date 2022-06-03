@@ -25,3 +25,27 @@
 .transition-content:hover {
     box-shadow: 4px 4px 4px 4px rgb(70, 70, 70);
 }
+.eye{
+    position:absolute; 
+    height:250px;
+    width:420px;
+    top: 0px;
+    left : 60px;
+    z-index: -1;
+  }
+  
+  .heaven
+  {
+    position:absolute;
+    border-radius:150px;
+    height:70px;
+    width:70px;
+    top:-20px;
+    left : 450px;
+    z-index: 1;
+  }
+  .positionText
+  { 
+    padding-top:250px;
+    z-index: 1;
+  }
