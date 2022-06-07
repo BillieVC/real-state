@@ -66,7 +66,7 @@ async function registerPropertyPost() {
     if(file!==undefined){
       formData.append("multipartFile", file);
     }
-    const resp=await fetch("properties/save", {
+    const resp = await fetch("properties/save", {
       method: "POST", body: formData,
       charset: "UTF-8"
     }).then((response)=>{

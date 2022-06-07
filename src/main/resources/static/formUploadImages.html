@@ -29,11 +29,13 @@
         <div class="upload__btn-box">
           <label class="upload__btn">
             <p>Subir Imagen</p>
-            <input type="file" multiple="" data-max_length="20" class="upload__inputfile">
+            <input type="file" multiple="" data-max_length="4" accept="image/png,image/jpeg" class="upload__inputfile">
           </label>
         </div>
 
-        <div class="upload__img-wrap"></div>
+        <div class="fondo">
+          <div class="upload__img-wrap margin"></div>
+        </div>
 
         <div class="mb-3 mt-3 text-center">
           <button id="registerButton" onclick="uploadToDataBase()" class="btn text-white"

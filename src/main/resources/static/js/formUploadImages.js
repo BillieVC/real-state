@@ -3,6 +3,8 @@ var urlParams = new URLSearchParams(queryString);
 var id = urlParams.get('id');
 var imgWrap = "";
 var imgArray = [];
+const button = document.getElementById('registerButton');
+        button.disabled = true;
 
 
 var property = async function getProperty(id) {
@@ -24,6 +26,7 @@ window.onload = async function() {
 
 jQuery(document).ready(function () {
     ImgUpload();
+    
   });
   
   function ImgUpload() {
@@ -60,6 +63,8 @@ jQuery(document).ready(function () {
               reader.onload = function (e) {
                 var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
                 imgWrap.append(html);
+                const button = document.getElementById('registerButton');
+                button.disabled = false;
                 iterator++;
               }
               reader.readAsDataURL(f);
@@ -78,6 +83,14 @@ jQuery(document).ready(function () {
         }
       }
       $(this).parent().parent().remove();
+      if (imgArray.length<1){
+        const button = document.getElementById('registerButton');
+        button.disabled = true;
+      }
+      else{
+        const button = document.getElementById('registerButton');
+        button.disabled = false;
+      }
     });
   }
 
@@ -92,20 +105,38 @@ function uploadFile(){
   const files = imgArray;
   const formData  = new FormData();
   
+  files.forEach(file=>{
+    formData.append('photos', file)
+  })
 
-  formData.append('photos', files[0])
   fetch('http://localhost:9091/photographs/addPhotos/'+id, {
   method: 'POST',
   body: formData
   })
-  .then(response => response.json())
+  .then(response => {response.json();
+    if(response.ok){
+      Swal.fire({
+        title: 'Éxito!',
+        text: "Fotografias Subidas",
+        icon: 'success',
+        allowOutsideClick: false,
+        confirmButtonText: 'Aceptar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "http://localhost:9091/offerDetail.html?id="+id;
+        }
+      })
+    }else{
+      
+    }
+  })
   .then(data => {
-  console.log(data)
+  console.log(data);
   })
   .catch(error => {
   console.error(error)
   })
-    
+  
 }
 
 function uploadToDataBase(){
