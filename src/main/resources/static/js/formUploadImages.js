@@ -39,6 +39,15 @@ function ImgUpload() {
             let files = e.target.files;
             let filesArr = Array.prototype.slice.call(files);
             let iterator = 0;
+            console.log(filesArr.length, maxLength);
+            if (filesArr.length - 1 > maxLength) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Número de imágenes excedido',
+                    text: 'Solo se aceptan 5 imágenes como máximo'
+                })
+                return;
+            }
             filesArr.forEach(function (f, index) {
 
                 if (!ALLOWED_TYPES.includes(f.type)) {
@@ -72,18 +81,29 @@ function ImgUpload() {
                         }
                     }
                     if (len > maxLength) {
-
                         return false;
                     } else {
                         imgArray.push(f);
-
                         let reader = new FileReader();
                         reader.onload = function (e) {
-                            let html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
-                            imgWrap.append(html);
-                            const button = document.getElementById('registerButton');
-                            button.disabled = false;
-                            iterator++;
+                            let tester = new Image();
+                            tester.onload = ev => {
+                                let html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
+                                imgWrap.append(html);
+                                const button = document.getElementById('registerButton');
+                                button.disabled = false;
+                                iterator++;
+                            };
+                            tester.onerror = (event, source) => {
+                                imgArray.pop();
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Ocurrió un problema',
+                                    text: 'Parece ser que el archivo es incorrecto o está dañado, intente con otro archivo'
+                                })
+                            };
+                            tester.src = e.target.result;
+
                         }
                         reader.readAsDataURL(f);
                     }
