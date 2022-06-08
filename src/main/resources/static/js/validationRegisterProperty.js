@@ -30,7 +30,6 @@ async function registerPropertyPost() {
       fileEle.classList.remove("is-valid");
       flag=false;
     }else {
-      console.log(file);
       if(file.size>5000000){
         fileEle.classList.add("is-invalid");
         fileEle.classList.remove("is-valid");
@@ -66,7 +65,7 @@ async function registerPropertyPost() {
     if(file!==undefined){
       formData.append("multipartFile", file);
     }
-    const resp=await fetch("properties/save", {
+    const resp = await fetch("properties/save", {
       method: "POST", body: formData,
       charset: "UTF-8"
     }).then((response)=>{

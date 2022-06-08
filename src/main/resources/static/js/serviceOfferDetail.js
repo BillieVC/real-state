@@ -54,13 +54,22 @@ async function buildDetail(props) {
 }
 
 function createDetail(prop, src) {
-    let cardHtml =
+    var icono = "https://firebasestorage.googleapis.com/v0/b/tienda-31379.appspot.com/o/Icono%20camara.png?alt=media&token=2c39797f-c558-40d4-b413-4e19763773d1";
+    let cardHtml = 
         '<h3 class="text-center pt-5">' + prop.propertyDto.title + '</h3>' +
         '<div class="container pt-5">' +
         '    <div class="row pt-5">' +
         '        <div class="col-6 text-center">' +
-        '            <img src=' + src + ' width="420px">' +
-        '            <h5 class="text-muted">' + prop.propertyDto.zone + '/' + prop.propertyDto.propertyDepartment.replace("_", " ") + '</h5>' +
+        
+        '               <div style="position: relative; left: 0; top: 0;">'  +
+        
+        '                   <img src=' + src + ' width = "420px" class="eye">' +
+        '                   <a title="" onclick = "redirectionPageformUploadImages(' + id + ')" ><img src=' + icono + ' class="heaven transition-content"></a>' +
+        
+        
+        '               </div> '+
+        '              <h5 class="text-center text-muted positionText">' + prop.propertyDto.zone + '/' + prop.propertyDto.propertyDepartment.replace("_", " ") + '</h5>' +
+        
         '        </div>' +
         '            <div class="col-6 pt-2 ">' +
         '            <div class="row">' +
@@ -85,6 +94,10 @@ function createDetail(prop, src) {
 
 
     return cardHtml;
+}
+
+function redirectionPageformUploadImages(id){
+    window.location.href = "formUploadImages.html?id=" + id;
 }
 
 function getHeaders() {
