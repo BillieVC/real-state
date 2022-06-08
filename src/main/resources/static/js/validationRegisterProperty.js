@@ -30,7 +30,6 @@ async function registerPropertyPost() {
       fileEle.classList.remove("is-valid");
       flag=false;
     }else {
-      console.log(file);
       if(file.size>5000000){
         fileEle.classList.add("is-invalid");
         fileEle.classList.remove("is-valid");

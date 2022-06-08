@@ -3,11 +3,11 @@ var urlParams = new URLSearchParams(queryString);
 var id = urlParams.get('id');
 var imgWrap = "";
 var imgArray = [];
-const button = document.getElementById('registerButton');
-        button.disabled = true;
+let button = document.getElementById('registerButton');
+button.disabled = true;
+const ALLOWED_TYPES = ["image/jpg", "image/jpeg", "image/png"];
 
-
-var property = async function getProperty(id) {
+let property = async function getProperty(id) {
     const request = await fetch('http://localhost:9091/properties/' + id, {
         method: 'GET',
         headers: getHeaders()
@@ -16,83 +16,114 @@ var property = async function getProperty(id) {
 }
 
 
-window.onload = async function() {
-  property(id).then(property => {
-    var el = document.getElementById("titulo");
-    el.textContent = property.propertyDto.title;
-  })  
+window.onload = async function () {
+    property(id).then(property => {
+        let el = document.getElementById("titulo");
+        el.textContent = `Subir fotografías para el inmueble: "${property.propertyDto.title}"`;
+    })
 }
 
 
 jQuery(document).ready(function () {
     ImgUpload();
-    
-  });
-  
-  function ImgUpload() {
-  
+
+});
+
+function ImgUpload() {
+
     $('.upload__inputfile').each(function () {
-      $(this).on('change', function (e) {
-        imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-        var maxLength = $(this).attr('data-max_length');
-  
-        var files = e.target.files;
-        var filesArr = Array.prototype.slice.call(files);
-        var iterator = 0;
-        filesArr.forEach(function (f, index) {
-  
-          if (!f.type.match('image.*')) {
-            return;
-          }
-  
-          if (imgArray.length > maxLength) {
-            return false
-          } else {
-            var len = 0;
-            for (var i = 0; i < imgArray.length; i++) {
-              if (imgArray[i] !== undefined) {
-                len++;
-              }
-            }
-            if (len > maxLength) {
-              return false;
-            } else {
-              imgArray.push(f);
-  
-              var reader = new FileReader();
-              reader.onload = function (e) {
-                var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
-                imgWrap.append(html);
-                const button = document.getElementById('registerButton');
-                button.disabled = false;
-                iterator++;
-              }
-              reader.readAsDataURL(f);
-            }
-          }
+        $(this).on('change', function (e) {
+            imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
+            var maxLength = $(this).attr('data-max_length');
+
+            let files = e.target.files;
+            let filesArr = Array.prototype.slice.call(files);
+            let iterator = 0;
+            filesArr.forEach(function (f, index) {
+
+                if (!ALLOWED_TYPES.includes(f.type)) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Formato no aceptado',
+                        text: 'Solo se aceptan imagenes con extensión: .jpg, .jpeg, .png'
+                    })
+                    return;
+                }
+                if (f.size > 5000000) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Imagen muy grande',
+                        text: 'Solo se aceptan imagenes de 5MB de tamaño como máximo'
+                    })
+                    return;
+                }
+                if (imgArray.length > maxLength) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Número de imágenes excedido',
+                        text: 'Solo se aceptan 5 imágenes como máximo'
+                    })
+                    return false
+                } else {
+                    let len = 0;
+                    for (var i = 0; i < imgArray.length; i++) {
+                        if (imgArray[i] !== undefined) {
+                            len++;
+                        }
+                    }
+                    if (len > maxLength) {
+
+                        return false;
+                    } else {
+                        imgArray.push(f);
+
+                        let reader = new FileReader();
+                        reader.onload = function (e) {
+                            let html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
+                            imgWrap.append(html);
+                            const button = document.getElementById('registerButton');
+                            button.disabled = false;
+                            iterator++;
+                        }
+                        reader.readAsDataURL(f);
+                    }
+                }
+            });
         });
-      });
     });
-  
+
     $('body').on('click', ".upload__img-close", function (e) {
-      var file = $(this).parent().data("file");
-      for (var i = 0; i < imgArray.length; i++) {
-        if (imgArray[i].name === file) {
-          imgArray.splice(i, 1);
-          break;
+        let file = $(this).parent().data("file");
+        for (let i = 0; i < imgArray.length; i++) {
+            if (imgArray[i].name === file) {
+                imgArray.splice(i, 1);
+                break;
+            }
         }
-      }
-      $(this).parent().parent().remove();
-      if (imgArray.length<1){
-        const button = document.getElementById('registerButton');
-        button.disabled = true;
-      }
-      else{
-        const button = document.getElementById('registerButton');
-        button.disabled = false;
-      }
+        $(this).parent().parent().remove();
+        if (imgArray.length < 1) {
+            const button = document.getElementById('registerButton');
+            button.disabled = true;
+        } else {
+            const button = document.getElementById('registerButton');
+            button.disabled = false;
+        }
     });
-  }
+}
+
+function cancel() {
+    Swal.fire({
+        title: 'Si cancela no se guardarán los cambios ¿Está seguro?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí',
+        cancelButtonText: 'No'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "offerDetail.html?id=" + id;
+        }
+    })
+}
 
 function getHeaders() {
     return {
@@ -101,46 +132,47 @@ function getHeaders() {
     };
 }
 
-function uploadFile(){
-  const files = imgArray;
-  const formData  = new FormData();
-  
-  files.forEach(file=>{
-    formData.append('photos', file)
-  })
+function uploadFile() {
+    const files = imgArray;
+    const formData = new FormData();
 
-  fetch('http://localhost:9091/photographs/addPhotos/'+id, {
-  method: 'POST',
-  body: formData
-  })
-  .then(response => {response.json();
-    if(response.ok){
-      Swal.fire({
-        title: 'Éxito!',
-        text: "Fotografias Subidas",
-        icon: 'success',
-        allowOutsideClick: false,
-        confirmButtonText: 'Aceptar'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = "http://localhost:9091/offerDetail.html?id="+id;
-        }
-      })
-    }else{
-      
-    }
-  })
-  .then(data => {
-  console.log(data);
-  })
-  .catch(error => {
-  console.error(error)
-  })
-  
+    files.forEach(file => {
+        formData.append('photos', file)
+    })
+
+    fetch('http://localhost:9091/photographs/addPhotos/' + id, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            response.json();
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Éxito!',
+                    text: "Fotografias Subidas",
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "offerDetail.html?id=" + id;
+                    }
+                })
+            } else {
+
+            }
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error(error)
+        })
+
 }
 
-function uploadToDataBase(){
+function uploadToDataBase() {
 
-  console.log(imgArray);
-  uploadFile();
+    console.log(imgArray);
+    uploadFile();
 }
