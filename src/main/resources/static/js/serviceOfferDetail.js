@@ -48,12 +48,25 @@ function getFiles(props) {
 
 async function buildDetail(props) {
     const image = getFiles(props);
-    const detail = createDetail(props, image);
+    const photosSrc = getPhotoSources(props);
+    const images = createImgElements(photosSrc);
+    const detail = createDetail(props, images);
     let elemento = document.getElementById("offerDetail");
     elemento.innerHTML = `${detail}`;
 }
-
-function createDetail(prop, src) {
+function createImgElements(photosSrc){
+    let images = ``;
+    let first=true;
+    photosSrc.forEach(value =>{
+        let imgDiv = `<div class="carousel-item ${first ? "active":""}">
+                         <img class="d-block w-100" src="${value}">
+                     </div>`;
+        images+=imgDiv;
+        first = false;
+    })
+    return images;
+}
+function createDetail(prop, images) {
     var icono = "https://firebasestorage.googleapis.com/v0/b/tienda-31379.appspot.com/o/Icono%20camara.png?alt=media&token=2c39797f-c558-40d4-b413-4e19763773d1";
     let cardHtml = 
         '<h3 class="text-center pt-5">' + prop.propertyDto.title + '</h3>' +
@@ -62,9 +75,25 @@ function createDetail(prop, src) {
         '        <div class="col-6 text-center">' +
         
         '               <div style="position: relative; left: 0; top: 0;">'  +
+        `<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+           <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div> `+
         
-        '                   <img src=' + src + ' width = "420px" class="eye">' +
-        '                   <a title="" onclick = "redirectionPageformUploadImages(' + id + ')" ><img src=' + icono + ' class="heaven transition-content"></a>' +
+        '     <div class="carousel-inner">  '+images+'</div>' +
+        `   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>`+
+        '                   <a title="" onclick = "redirectionPageformUploadImages(' + id + ')" >' +
+        '<img src=' + icono + ' class="heaven transition-content"></a>' +
         
         
         '               </div> '+
@@ -94,6 +123,16 @@ function createDetail(prop, src) {
 
 
     return cardHtml;
+}
+
+function getPhotoSources(props){
+    let photosSrc = [];
+    if (props.photos.length > 0) {
+       for(let k=0; k<5; k++){
+            photosSrc.push( "data:" + props.photos[k].mimeType + ";base64," + props.photos[k].value);
+        }
+    }
+    return photosSrc;
 }
 
 function redirectionPageformUploadImages(id){
