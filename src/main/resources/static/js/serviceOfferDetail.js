@@ -1,11 +1,9 @@
-console.log("Service");
-
-var queryString = window.location.search;
-var urlParams = new URLSearchParams(queryString);
-var id = urlParams.get('id');
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let id = urlParams.get('id');
 let MAX_NUMBER_PHOTOS = 5;
 
-var property = async function getProperty(id) {
+let property = async function getProperty(id) {
     const request = await fetch('http://localhost:9091/properties/' + id, {
         method: 'GET',
         headers: getHeaders()
@@ -37,36 +35,36 @@ function goHome() {
     window.location.href = "index.html";
 }
 
-function getSinglePhoto(props) {
+function getSinglePhoto(property) {
     let srcImg = "../assets/images/image-unavailable.png";
-    if (props.photos.length > 0) {
-        const fileObj = props.photos[0];
+    if (property.photos.length > 0) {
+        const fileObj = property.photos[0];
         srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;
     }
     return `<img src=${srcImg} class="imgStyle" alt="property_photo">`;
 }
 
-async function buildDetail(props) {
-    const photosSrc = getPhotoSources(props);
-    const images = createImgElements(photosSrc);
+async function buildDetail(property) {
+    const photoSources = getPhotoSources(property);
+    const images = createImgElements(photoSources);
     let detail;
-    if (photosSrc.length > 1) {
-        const indicators = createCarouselIndicators(photosSrc);
+    if (photoSources.length > 1) {
+        const indicators = createCarouselIndicators(photoSources);
         const carousel = getCarouselElement(images, indicators);
-        detail = createDetail(props, carousel);
+        detail = createDetail(property, carousel);
     } else {
-        detail = createDetail(props, getSinglePhoto(props));
+        detail = createDetail(property, getSinglePhoto(property));
     }
     let element = document.getElementById("offerDetail");
     element.innerHTML = `${detail}`;
 }
 
-function createImgElements(photosSrc) {
+function createImgElements(photoSources) {
     let images = ``;
     let first = true;
-    photosSrc.forEach(value => {
+    photoSources.forEach(value => {
         let imgDiv = `<div class="carousel-item ${first ? "active" : ""}">
-                         <img class="d-block" style="width: 500px; height: 250px" src="${value}" alt="property_photo">
+                         <img class="d-block" style="width: 500px; height: 280px" src="${value}" alt="property_photo">
                      </div>`;
         images += imgDiv;
         first = false;
@@ -74,10 +72,10 @@ function createImgElements(photosSrc) {
     return images;
 }
 
-function createCarouselIndicators(photosSrc) {
+function createCarouselIndicators(photoSources) {
     let indicators = '';
     let slideNumber = 0;
-    photosSrc.forEach(() => {
+    photoSources.forEach(() => {
         let button = `<button type="button" data-bs-target="#carouselExampleIndicators" 
                         data-bs-slide-to="${slideNumber}" class="${slideNumber === 0 ? "active" : ""}" 
                         aria-current="${slideNumber === 0}" aria-label="Slide ${slideNumber + 1}"></button>`;
@@ -151,9 +149,12 @@ function getPhotoSources(props) {
     } else if (props.photos.length < MAX_NUMBER_PHOTOS) {
         numberPhotosToShow = props.photos.length;
     }
-
-    for (let k = 0; k < numberPhotosToShow; k++) {
-        photosSrc.push("data:" + props.photos[k].mimeType + ";base64," + props.photos[k].value);
+    let flag = numberPhotosToShow;
+    let index = props.photos.length-1;
+    while ( flag > 0) {
+        photosSrc.push("data:" + props.photos[index].mimeType + ";base64," + props.photos[index].value);
+        flag--;
+        index--;
     }
 
     return photosSrc;
