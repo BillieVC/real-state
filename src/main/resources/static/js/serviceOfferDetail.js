@@ -3,6 +3,7 @@ console.log("Service");
 var queryString = window.location.search;
 var urlParams = new URLSearchParams(queryString);
 var id = urlParams.get('id');
+let MAX_NUMBER_PHOTOS = 5;
 
 var property = async function getProperty(id) {
     const request = await fetch('http://localhost:9091/properties/' + id, {
@@ -36,106 +37,129 @@ function goHome() {
     window.location.href = "index.html";
 }
 
-function getFiles(props) {
-
-    var srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+function getSinglePhoto(props) {
+    let srcImg = "../assets/images/image-unavailable.png";
     if (props.photos.length > 0) {
         const fileObj = props.photos[0];
         srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;
     }
-    return srcImg;
+    return `<img src=${srcImg} class="imgStyle" alt="property_photo">`;
 }
 
 async function buildDetail(props) {
-    const image = getFiles(props);
     const photosSrc = getPhotoSources(props);
     const images = createImgElements(photosSrc);
-    const detail = createDetail(props, images);
-    let elemento = document.getElementById("offerDetail");
-    elemento.innerHTML = `${detail}`;
+    let detail;
+    if (photosSrc.length > 1) {
+        const indicators = createCarouselIndicators(photosSrc);
+        const carousel = getCarouselElement(images, indicators);
+        detail = createDetail(props, carousel);
+    } else {
+        detail = createDetail(props, getSinglePhoto(props));
+    }
+    let element = document.getElementById("offerDetail");
+    element.innerHTML = `${detail}`;
 }
-function createImgElements(photosSrc){
+
+function createImgElements(photosSrc) {
     let images = ``;
-    let first=true;
-    photosSrc.forEach(value =>{
-        let imgDiv = `<div class="carousel-item ${first ? "active":""}">
-                         <img class="d-block w-100" src="${value}">
+    let first = true;
+    photosSrc.forEach(value => {
+        let imgDiv = `<div class="carousel-item ${first ? "active" : ""}">
+                         <img class="d-block" style="width: 500px; height: 250px" src="${value}" alt="property_photo">
                      </div>`;
-        images+=imgDiv;
+        images += imgDiv;
         first = false;
     })
     return images;
 }
-function createDetail(prop, images) {
-    var icono = "https://firebasestorage.googleapis.com/v0/b/tienda-31379.appspot.com/o/Icono%20camara.png?alt=media&token=2c39797f-c558-40d4-b413-4e19763773d1";
-    let cardHtml = 
-        '<h3 class="text-center pt-5">' + prop.propertyDto.title + '</h3>' +
+
+function createCarouselIndicators(photosSrc) {
+    let indicators = '';
+    let slideNumber = 0;
+    photosSrc.forEach(() => {
+        let button = `<button type="button" data-bs-target="#carouselExampleIndicators" 
+                        data-bs-slide-to="${slideNumber}" class="${slideNumber === 0 ? "active" : ""}" 
+                        aria-current="${slideNumber === 0}" aria-label="Slide ${slideNumber + 1}"></button>`;
+        slideNumber++;
+        indicators += button;
+    })
+    return indicators;
+}
+
+function getCarouselElement(images, indicators) {
+    return `<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" >
+               <div class="carousel-indicators">
+                ${indicators}
+              </div> 
+             <div class="carousel-inner">${images}</div>
+                <button class="carousel-control-prev" type="button" 
+                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" 
+                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>`;
+}
+
+function createDetail(property, propertyPhotos) {
+    return '<h3 class="text-center pt-5">' + property.propertyDto.title + '</h3>' +
         '<div class="container pt-5">' +
         '    <div class="row pt-5">' +
-        '        <div class="col-6 text-center">' +
-        
-        '               <div style="position: relative; left: 0; top: 0;">'  +
-        `<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-           <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleControls" data-bs-slide-to="2" aria-label="Slide 3"></button>
-          </div> `+
-        
-        '     <div class="carousel-inner">  '+images+'</div>' +
-        `   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>`+
-        '                   <a title="" onclick = "redirectionPageformUploadImages(' + id + ')" >' +
-        '<img src=' + icono + ' class="heaven transition-content"></a>' +
-        
-        
-        '               </div> '+
-        '              <h5 class="text-center text-muted positionText">' + prop.propertyDto.zone + '/' + prop.propertyDto.propertyDepartment.replace("_", " ") + '</h5>' +
-        
+        '        <div class="col-md-6 col-sm-8 pt-2 text-center">' +
+
+        '               <div class="row w-100 d-flex justify-content-center position-relative">' + `
+                          
+                            ${propertyPhotos}` +
+        '                   <a class="position-absolute top-0 start-100 translate-middle" title="" onclick = "redirectionPageFormUploadImages(' + id + ')" >' +
+        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" alt="icon-eye"></a>' +
+        '               </div> ' +
+        '            <div class="row"><h5 class="text-center text-muted">' + property.propertyDto.zone + '/' + property.propertyDto.propertyDepartment.replace("_", " ") + '</h5> </div>  ' +
+
         '        </div>' +
-        '            <div class="col-6 pt-2 ">' +
+        '            <div class="col-md-6 col-sm-8 pt-2 ">' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Precio:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.price + ' Bs.</div>' +
+        '                <div class="col-8">' + property.propertyDto.price + ' Bs.</div>' +
         '            </div>' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Descripción:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.description + '</div>' +
+        '                <div class="col-8">' + property.propertyDto.description + '</div>' +
         '            </div>   ' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Tipo de Imnueble:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.propertyType.replace("_"," ") + '</div>' +
+        '                <div class="col-8">' + property.propertyDto.propertyType.replace("_", " ") + '</div>' +
         '            </div>   ' +
         '            <div class="row">' +
         '                <div class="col-4"><h5>Dirección:</h5></div>' +
-        '                <div class="col-8">' + prop.propertyDto.address + '</div>' +
+        '                <div class="col-8">' + property.propertyDto.address + '</div>' +
         '            </div>' +
         '        </div>' +
         '    </div>' +
         '</div>';
-
-
-    return cardHtml;
 }
 
-function getPhotoSources(props){
+function getPhotoSources(props) {
     let photosSrc = [];
-    if (props.photos.length > 0) {
-       for(let k=0; k<5; k++){
-            photosSrc.push( "data:" + props.photos[k].mimeType + ";base64," + props.photos[k].value);
-        }
+    let numberPhotosToShow = MAX_NUMBER_PHOTOS;
+    if (props.photos.length === 0) {
+        numberPhotosToShow = 0;
+    } else if (props.photos.length < MAX_NUMBER_PHOTOS) {
+        numberPhotosToShow = props.photos.length;
     }
+
+    for (let k = 0; k < numberPhotosToShow; k++) {
+        photosSrc.push("data:" + props.photos[k].mimeType + ";base64," + props.photos[k].value);
+    }
+
     return photosSrc;
 }
 
-function redirectionPageformUploadImages(id){
+function redirectionPageFormUploadImages(id) {
     window.location.href = "formUploadImages.html?id=" + id;
 }
 
