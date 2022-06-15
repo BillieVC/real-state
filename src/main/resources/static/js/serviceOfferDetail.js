@@ -91,14 +91,14 @@ function getCarouselElement(images, indicators) {
                 ${indicators}
               </div> 
              <div class="carousel-inner">${images}</div>
-                <button class="carousel-control-prev" type="button" 
+                <button class="carousel-control-prev" disabled type="button" 
                     data-bs-target="#carouselPhotosControls" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-prev-icon" style="cursor: pointer;" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
-                <button class="carousel-control-next" type="button" 
+                <button class="carousel-control-next" style="height: 30px; top: 132px;" disabled type="button" 
                     data-bs-target="#carouselPhotosControls" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="carousel-control-next-icon"  style="cursor: pointer;" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>`;
@@ -113,8 +113,8 @@ function createDetail(property, propertyPhotos) {
         '               <div class="row w-100 d-flex justify-content-center position-relative">' + `
                           
                             ${propertyPhotos}` +
-        '                   <a class="position-absolute top-0 start-100 translate-middle" title="" onclick = "redirectionPageFormUploadImages(' + id + ')" >' +
-        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" alt="icon-eye"></a>' +
+        '                   <a class="position-absolute top-0 start-100 translate-middle" >' +
+        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" title="Agregar fotos" onclick="redirectionPageFormUploadImages(' + id + ')" alt="icon-eye"></a>' +
         '               </div> ' +
         '            <div class="row"><h5 class="text-center text-muted">' + property.propertyDto.zone + '/' + property.propertyDto.propertyDepartment.replace("_", " ") + '</h5> </div>  ' +
 
