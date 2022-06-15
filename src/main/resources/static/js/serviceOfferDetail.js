@@ -41,7 +41,7 @@ function getSinglePhoto(property) {
         const fileObj = property.photos[0];
         srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;
     }
-    return `<img src=${srcImg} class="imgStyle" alt="property_photo">`;
+    return `<img src=${srcImg} class="w-100 imgStyle" alt="property_photo">`;
 }
 
 async function buildDetail(property) {
@@ -64,7 +64,7 @@ function createImgElements(photoSources) {
     let first = true;
     photoSources.forEach(value => {
         let imgDiv = `<div class="carousel-item ${first ? "active" : ""}">
-                         <img class="d-block" style="width: 500px; height: 280px" src="${value}" alt="property_photo">
+                         <img class="d-block w-100" style="height: 300px" src="${value}" alt="property_photo">
                      </div>`;
         images += imgDiv;
         first = false;
@@ -86,7 +86,7 @@ function createCarouselIndicators(photoSources) {
 }
 
 function getCarouselElement(images, indicators) {
-    return `<div id="carouselPhotosControls" class="carousel slide" data-bs-ride="carousel" >
+    return `<div id="carouselPhotosControls" data-bs-interval="false" class="carousel slide" data-bs-ride="carousel" >
                <div class="carousel-indicators">
                 ${indicators}
               </div> 
