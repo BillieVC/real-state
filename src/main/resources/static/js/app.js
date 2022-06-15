@@ -133,7 +133,7 @@ async function getFiles(propertyId) {
         headers: getHeaders()
     });
     const files = await requestFiles.json();
-    let srcImg = "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png";
+    let srcImg = "../assets/images/image-unavailable.png";
     if (files.photographs.length > 0) {
         const fileObj = files.photographs[0];
         srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;

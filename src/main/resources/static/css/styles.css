@@ -29,7 +29,7 @@
     position:absolute; 
     height:250px;
     width:420px;
-    top: 0px;
+    top: 0;
     left : 60px;
     z-index: -1;
   }
@@ -40,16 +40,26 @@
     border-radius:150px;
     height:70px;
     width:70px;
-    top:-20px;
+    top:20px;
     left : 450px;
     z-index: 1;
   }
   .positionText
   { 
-    padding-top:250px;
+    padding-top:0;
     z-index: 1;
   }
   .fondo{
     height:70px;
     width:70px;
+  }
+
+  .imgStyle {
+      height:300px;
+  }
+  .imgEye {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      cursor: pointer;
   }
