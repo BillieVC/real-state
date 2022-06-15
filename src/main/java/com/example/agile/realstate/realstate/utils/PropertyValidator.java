@@ -5,15 +5,17 @@ import com.example.agile.realstate.realstate.domain.PropertyDepartment;
 import com.example.agile.realstate.realstate.domain.PropertyType;
 import com.example.agile.realstate.realstate.dto.request.PropertyRequest;
 import com.example.agile.realstate.realstate.exception.BadRequestException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
 public class PropertyValidator {
-    @Autowired
-    private Message message;
+    private final Message message;
+
+    public PropertyValidator(Message message) {
+        this.message = message;
+    }
 
     public void validate(PropertyRequest propertyRequest) {
         if (Utils.isNullOrEmpty(propertyRequest.getTitle())) {
