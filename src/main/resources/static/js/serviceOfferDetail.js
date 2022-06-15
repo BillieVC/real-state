@@ -76,7 +76,7 @@ function createCarouselIndicators(photoSources) {
     let indicators = '';
     let slideNumber = 0;
     photoSources.forEach(() => {
-        let button = `<button type="button" data-bs-target="#carouselExampleIndicators" 
+        let button = `<button type="button" data-bs-target="#carouselPhotosControls" 
                         data-bs-slide-to="${slideNumber}" class="${slideNumber === 0 ? "active" : ""}" 
                         aria-current="${slideNumber === 0}" aria-label="Slide ${slideNumber + 1}"></button>`;
         slideNumber++;
@@ -86,18 +86,18 @@ function createCarouselIndicators(photoSources) {
 }
 
 function getCarouselElement(images, indicators) {
-    return `<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" >
+    return `<div id="carouselPhotosControls" class="carousel slide" data-bs-ride="carousel" >
                <div class="carousel-indicators">
                 ${indicators}
               </div> 
              <div class="carousel-inner">${images}</div>
                 <button class="carousel-control-prev" type="button" 
-                    data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    data-bs-target="#carouselPhotosControls" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Previous</span>
                 </button>
                 <button class="carousel-control-next" type="button" 
-                    data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    data-bs-target="#carouselPhotosControls" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Next</span>
                 </button>
