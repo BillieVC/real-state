@@ -114,7 +114,7 @@ function createDetail(property, propertyPhotos) {
                           
                             ${propertyPhotos}` +
         '                   <a class="position-absolute top-0 start-100 translate-middle" >' +
-        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" title="Agregar fotos" onclick="redirectionPageFormUploadImages(' + id + ')" alt="icon-eye"></a>' +
+        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" title="Agregar fotos" onclick="redirectToPageFormUploadImages(' + id + ')" alt="icon-eye"></a>' +
         '               </div> ' +
         '            <div class="row"><h5 class="text-center text-muted">' + property.propertyDto.zone + '/' + property.propertyDto.propertyDepartment.replace("_", " ") + '</h5> </div>  ' +
 
@@ -141,18 +141,18 @@ function createDetail(property, propertyPhotos) {
         '</div>';
 }
 
-function getPhotoSources(props) {
+function getPhotoSources(property) {
     let photosSrc = [];
     let numberPhotosToShow = MAX_NUMBER_PHOTOS;
-    if (props.photos.length === 0) {
+    if (property.photos.length === 0) {
         numberPhotosToShow = 0;
-    } else if (props.photos.length < MAX_NUMBER_PHOTOS) {
-        numberPhotosToShow = props.photos.length;
+    } else if (property.photos.length < MAX_NUMBER_PHOTOS) {
+        numberPhotosToShow = property.photos.length;
     }
     let flag = numberPhotosToShow;
-    let index = props.photos.length-1;
+    let index = property.photos.length-1;
     while ( flag > 0) {
-        photosSrc.push("data:" + props.photos[index].mimeType + ";base64," + props.photos[index].value);
+        photosSrc.push("data:" + property.photos[index].mimeType + ";base64," + property.photos[index].value);
         flag--;
         index--;
     }
@@ -160,7 +160,7 @@ function getPhotoSources(props) {
     return photosSrc;
 }
 
-function redirectionPageFormUploadImages(id) {
+function redirectToPageFormUploadImages(id) {
     window.location.href = "formUploadImages.html?id=" + id;
 }
 

@@ -39,7 +39,6 @@ function ImgUpload() {
             let files = e.target.files;
             let filesArr = Array.prototype.slice.call(files);
             let iterator = 0;
-            console.log(filesArr.length, maxLength);
             if (filesArr.length - 1 > maxLength) {
                 Swal.fire({
                     icon: 'error',
@@ -48,9 +47,9 @@ function ImgUpload() {
                 })
                 return;
             }
-            filesArr.forEach(function (f, index) {
+            filesArr.forEach(function (file, index) {
 
-                if (!ALLOWED_TYPES.includes(f.type)) {
+                if (!ALLOWED_TYPES.includes(file.type)) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Formato no aceptado',
@@ -58,7 +57,7 @@ function ImgUpload() {
                     })
                     return;
                 }
-                if (f.size > 5000000) {
+                if (file.size > 5000000) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Imagen muy grande',
@@ -83,12 +82,12 @@ function ImgUpload() {
                     if (len > maxLength) {
                         return false;
                     } else {
-                        imgArray.push(f);
+                        imgArray.push(file);
                         let reader = new FileReader();
-                        reader.onload = function (e) {
+                        reader.onload = function (event) {
                             let tester = new Image();
-                            tester.onload = ev => {
-                                let html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
+                            tester.onload = imgEvent => {
+                                let html = "<div class='upload__img-box'><div style='background-image: url(" + event.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + file.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
                                 imgWrap.append(html);
                                 const button = document.getElementById('registerButton');
                                 button.disabled = false;
@@ -102,10 +101,10 @@ function ImgUpload() {
                                     text: 'Parece ser que el archivo es incorrecto o está dañado, intente con otro archivo'
                                 })
                             };
-                            tester.src = e.target.result;
+                            tester.src = event.target.result;
 
                         }
-                        reader.readAsDataURL(f);
+                        reader.readAsDataURL(file);
                     }
                 }
             });
@@ -192,7 +191,5 @@ function uploadFile() {
 }
 
 function uploadToDataBase() {
-
-    console.log(imgArray);
     uploadFile();
 }
