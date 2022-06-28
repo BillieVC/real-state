@@ -1,20 +1,19 @@
-var queryString = window.location.search;
-var urlParams = new URLSearchParams(queryString);
-var id = urlParams.get('id');
-var imgWrap = "";
-var imgArray = [];
+const ALLOWED_TYPES = ["image/jpg", "image/jpeg", "image/png"];
+let queryString = window.location.search;
+let urlParams = new URLSearchParams(queryString);
+let id = urlParams.get('id');
+let imgWrap = "";
+let imgArray = [];
 let button = document.getElementById('registerButton');
 button.disabled = true;
-const ALLOWED_TYPES = ["image/jpg", "image/jpeg", "image/png"];
 
 let property = async function getProperty(id) {
-    const request = await fetch('http://localhost:9091/properties/' + id, {
+    let request = await fetch('http://localhost:9091/properties/' + id, {
         method: 'GET',
         headers: getHeaders()
     });
     return await request.json();
 }
-
 
 window.onload = async function () {
     property(id).then(property => {
@@ -22,7 +21,6 @@ window.onload = async function () {
         el.textContent = `Subir fotografías para el inmueble: "${property.propertyDto.title}"`;
     })
 }
-
 
 jQuery(document).ready(function () {
     ImgUpload();
@@ -34,7 +32,7 @@ function ImgUpload() {
     $('.upload__inputfile').each(function () {
         $(this).on('change', function (e) {
             imgWrap = $(this).closest('.upload__box').find('.upload__img-wrap');
-            var maxLength = $(this).attr('data-max_length');
+            let maxLength = $(this).attr('data-max_length');
 
             let files = e.target.files;
             let filesArr = Array.prototype.slice.call(files);
@@ -74,7 +72,7 @@ function ImgUpload() {
                     return false
                 } else {
                     let len = 0;
-                    for (var i = 0; i < imgArray.length; i++) {
+                    for (let i = 0; i < imgArray.length; i++) {
                         if (imgArray[i] !== undefined) {
                             len++;
                         }
@@ -89,7 +87,7 @@ function ImgUpload() {
                             tester.onload = imgEvent => {
                                 let html = "<div class='upload__img-box'><div style='background-image: url(" + event.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + file.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
                                 imgWrap.append(html);
-                                const button = document.getElementById('registerButton');
+                                let button = document.getElementById('registerButton');
                                 button.disabled = false;
                                 iterator++;
                             };
@@ -121,10 +119,10 @@ function ImgUpload() {
         }
         $(this).parent().parent().remove();
         if (imgArray.length < 1) {
-            const button = document.getElementById('registerButton');
+            let button = document.getElementById('registerButton');
             button.disabled = true;
         } else {
-            const button = document.getElementById('registerButton');
+            let button = document.getElementById('registerButton');
             button.disabled = false;
         }
     });
@@ -152,8 +150,8 @@ function getHeaders() {
 }
 
 function uploadFile() {
-    const files = imgArray;
-    const formData = new FormData();
+    let files = imgArray;
+    let formData = new FormData();
 
     files.forEach(file => {
         formData.append('photos', file)
@@ -177,8 +175,6 @@ function uploadFile() {
                         window.location.href = "offerDetail.html?id=" + id;
                     }
                 })
-            } else {
-
             }
         })
         .then(data => {

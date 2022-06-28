@@ -1,10 +1,10 @@
+const MAX_NUMBER_PHOTOS = 5;
 let queryString = window.location.search;
 let urlParams = new URLSearchParams(queryString);
 let id = urlParams.get('id');
-let MAX_NUMBER_PHOTOS = 5;
 
 let property = async function getProperty(id) {
-    const request = await fetch('http://localhost:9091/properties/' + id, {
+    let request = await fetch('http://localhost:9091/properties/' + id, {
         method: 'GET',
         headers: getHeaders()
     });
@@ -38,19 +38,19 @@ function goHome() {
 function getSinglePhoto(property) {
     let srcImg = "../assets/images/image-unavailable.png";
     if (property.photos.length > 0) {
-        const fileObj = property.photos[0];
+        let fileObj = property.photos[0];
         srcImg = "data:" + fileObj.mimeType + ";base64," + fileObj.value;
     }
     return `<img src=${srcImg} class="w-100 imgStyle" alt="property_photo">`;
 }
 
 async function buildDetail(property) {
-    const photoSources = getPhotoSources(property);
-    const images = createImgElements(photoSources);
+    let photoSources = getPhotoSources(property);
+    let images = createImgElements(photoSources);
     let detail;
     if (photoSources.length > 1) {
-        const indicators = createCarouselIndicators(photoSources);
-        const carousel = getCarouselElement(images, indicators);
+        let indicators = createCarouselIndicators(photoSources);
+        let carousel = getCarouselElement(images, indicators);
         detail = createDetail(property, carousel);
     } else {
         detail = createDetail(property, getSinglePhoto(property));
