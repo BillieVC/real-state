@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AppointmentMapper {
-    AppointmentDto appointmentToAppointmentDto (Appointment appointment);
+    AppointmentDto convertAppointmentToAppointmentDto(Appointment appointment);
     List<AppointmentDto> appointmentListToAppointmentDtoList (List<Appointment> appointmentList);
 }

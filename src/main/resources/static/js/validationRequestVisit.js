@@ -1,58 +1,37 @@
-
-document.getElementById("name").addEventListener("input", (e) => {
-  let value = e.target.value;
-  e.target.value = value.replace(/[^A-Za-z ]/g, "");
+const Saturday = 5;
+const Sunday = 6;
+document.getElementById("name").addEventListener("input", (event) => {
+  let value = event.target.value;
+  event.target.value = value.replace(/[^A-Za-z ]/g, "");
 });
-document.getElementById("telf").addEventListener("input", (e) => {
-  let value = e.target.value;
-  e.target.value = value.replace(/[^0-9 ]/g, "");
+document.getElementById("telf").addEventListener("input", (event) => {
+  let value = event.target.value;
+  event.target.value = value.replace(/[^0-9 ]/g, "");
 });
-document.getElementById("email").addEventListener("input", (e) => {
-  let value = e.target.value;
-  e.target.value = value.replace(/[^A-Za-z0-9_.@ ]/g, "");
+document.getElementById("email").addEventListener("input", (event) => {
+  let value = event.target.value;
+  event.target.value = value.replace(/[^A-Za-z0-9_.@ ]/g, "");
+  
 });
-
+document.getElementById("txtDate").addEventListener("input", () => {
+  verifyDate();
+});
   async function requestVisit() {
-    flag= true;
-    let date = document.getElementById("txtDate");
-    if(weekend()){
-      date.classList.add("is-invalid");
-      date.classList.add("dateError");
-      date.classList.remove("dateValid");
-      date.classList.remove("is-valid");
-      flag = false;
-    }else{
-      date.classList.remove("is-invalid");
-      date.classList.add("dateValid");
-      date.classList.remove("dateError");
-      date.classList.add("is-valid");
-      flag = true;
-    }
-    
-    
-    
+    validated = true;
+    verifyDate();   
     var forms = document.querySelectorAll('.needs-validation')
-    // Loop over them and prevent submission
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
-            if (!form.checkValidity()||weekend()) {
+            if (!form.checkValidity()||theDateIsWeekendOrNull()) {
               flag=false;
             }
             form.classList.add('was-validated')
         })
         
-    if(flag){
+    if(validated){
       
-      console.log(document.getElementById("name").value);
-      console.log( document.getElementById("email").value);
-      console.log(document.getElementById("telf").value);
-      console.log(document.getElementById("txtDate").value);
-      console.log(document.getElementById("hour").value);
-      console.log(id);
-      let dateAndTime = document.getElementById("txtDate").value + "T" + document.getElementById("hour").value;
-      console.log(dateAndTime); 
-     
-      let form = {
+      let dateAndTime = document.getElementById("txtDate").value + "T" + document.getElementById("hour").value;     
+      let jsonRequestVisit = {
         userName: document.getElementById("name").value,
         userEmail:  document.getElementById("email").value,
         userPhone: document.getElementById("telf").value,
@@ -60,7 +39,7 @@ document.getElementById("email").addEventListener("input", (e) => {
       }
       fetch('appointments/save/' + id, {
         method: 'POST',
-        body: JSON.stringify(form),
+        body: JSON.stringify(jsonRequestVisit),
         headers: {
           'Content-Type': 'application/json'
         }
@@ -89,7 +68,6 @@ document.getElementById("email").addEventListener("input", (e) => {
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    //window.location.href = "offerDetail.html?id=" + id;
                     let date = document.getElementById("txtDate");     
                     date.classList.remove("dateError");
                     date.classList.remove("dateValid");
@@ -103,36 +81,28 @@ document.getElementById("email").addEventListener("input", (e) => {
         })   
   }
 }
-
-  function weekend() {
-    let flag = false;
-    const date = new Date(document.getElementById("txtDate").value);
-    console.log(date);
-    let day = date.getDay();
-    console.log(day);
-    if (day == 5 || day == 6||date=="Invalid Date"){
-      flag = true;
-    }
-    console.log("bandera:" + flag);
-    return flag; 
+function theDateIsWeekendOrNull() {
+  let booleanResponse = false;
+  let formDateValue = new Date(document.getElementById("txtDate").value);
+  let day = formDateValue.getDay();
+  if (day === Saturday || day === Sunday || formDateValue == "Invalid Date"){
+    booleanResponse = true;
   }
-  const validarDate = (e) => {
-    switch (e.target.name){
-      case "txtDate":
-        let date = document.getElementById("txtDate");
-        if(weekend()){
-          date.classList.add("is-invalid");
-          date.classList.add("dateError");
-          date.classList.remove("dateValid");
-          date.classList.remove("is-valid");
-          flag = false;
-        }else{
-          date.classList.remove("is-invalid");
-          date.classList.add("dateValid");
-          date.classList.remove("dateError");
-          date.classList.add("is-valid");
-          flag = true;
-        }
-
-    }
+  return booleanResponse; 
+}
+function verifyDate(){
+  let selectedDate = document.getElementById("txtDate");
+  if(theDateIsWeekendOrNull()){
+    selectedDate.classList.add("is-invalid");
+    selectedDate.classList.add("dateError");
+    selectedDate.classList.remove("dateValid");
+    selectedDate.classList.remove("is-valid");
+    validated = false;
+  }else{
+    selectedDate.classList.remove("is-invalid");
+    selectedDate.classList.add("dateValid");
+    selectedDate.classList.remove("dateError");
+    selectedDate.classList.add("is-valid");
+    validated = true;
   }
+}

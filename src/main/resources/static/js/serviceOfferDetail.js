@@ -171,17 +171,17 @@ function getHeaders() {
     };
 }
 
-function fechaLimitada(){
-    var dtToday = new Date();
-    var month = dtToday.getMonth() + 1;
-    var day = dtToday.getDate()+1;
-    var year = dtToday.getFullYear();
+function addAttributeForMindate(){
+    let dateToday = new Date();
+    let month = dateToday.getMonth() + 1;
+    let day = dateToday.getDate()+1;
+    var year = dateToday.getFullYear();
     if(month < 10)
     month = '0' + month.toString();
     if(day < 10){
         day = '0' + day.toString();
     }
-    var maxDate = year + '-' + month + '-' + day;
-    const elemento = document.getElementById("txtDate").setAttribute("min", maxDate);
+    let minDate = year + '-' + month + '-' + day;
+    document.getElementById("txtDate").setAttribute("min", minDate);
 }  
-fechaLimitada();
+addAttributeForMindate();

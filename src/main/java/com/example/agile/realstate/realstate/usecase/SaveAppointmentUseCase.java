@@ -55,6 +55,6 @@ public class SaveAppointmentUseCase {
     }
 
     private AppointmentDto buildResponse (Appointment appointment) {
-        return appointmentMapper.appointmentToAppointmentDto(appointment);
+        return appointmentMapper.convertAppointmentToAppointmentDto(appointment);
     }
 }
