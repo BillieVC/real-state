@@ -15,17 +15,17 @@ public class AppointmentValidator {
         this.message = message;
     }
 
-    public void validateDate (Date date) {
+    public void validateDate(Date date) {
         Calendar tomorrowDate = Calendar.getInstance();
         tomorrowDate.setTime(new Date());
         tomorrowDate.add(Calendar.DAY_OF_YEAR, 1);
+        tomorrowDate.set(Calendar.HOUR_OF_DAY, 0);
 
         Calendar requestDate = Calendar.getInstance();
         requestDate.setTime(date);
 
-        if(requestDate.before(tomorrowDate)){
+        if (requestDate.before(tomorrowDate)) {
             throw new BadRequestException(message.getMessage("invalid.appointment.date"));
         }
     }
-
 }
