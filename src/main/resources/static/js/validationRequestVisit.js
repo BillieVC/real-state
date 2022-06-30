@@ -1,5 +1,5 @@
-const Saturday = 5;
-const Sunday = 6;
+const SATURDAY = 5;
+const SUNDAY = 6;
 document.getElementById("name").addEventListener("input", (event) => {
   let value = event.target.value;
   event.target.value = value.replace(/[^A-Za-z ]/g, "");
@@ -85,7 +85,7 @@ function theDateIsWeekendOrNull() {
   let booleanResponse = false;
   let formDateValue = new Date(document.getElementById("txtDate").value);
   let day = formDateValue.getDay();
-  if (day === Saturday || day === Sunday || formDateValue == "Invalid Date"){
+  if (day === SATURDAY || day === SUNDAY || formDateValue == "Invalid Date"){
     booleanResponse = true;
   }
   return booleanResponse; 
