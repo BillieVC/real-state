@@ -170,3 +170,18 @@ function getHeaders() {
         'Content-Type': 'application/json'
     };
 }
+
+function addAttributeForMindate(){
+    let dateToday = new Date();
+    let month = dateToday.getMonth() + 1;
+    let day = dateToday.getDate()+1;
+    var year = dateToday.getFullYear();
+    if(month < 10)
+    month = '0' + month.toString();
+    if(day < 10){
+        day = '0' + day.toString();
+    }
+    let minDate = year + '-' + month + '-' + day;
+    document.getElementById("txtDate").setAttribute("min", minDate);
+}  
+addAttributeForMindate();

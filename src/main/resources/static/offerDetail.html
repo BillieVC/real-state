@@ -12,6 +12,10 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/styles.css">
+    <script src="js/validationRegisterProperty.js" defer></script>
+    <script src="js/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
+    <script src="./js/validationRequestVisit.js" defer></script>
+    
 </head>
 <body>
 <nav class="navbar navbar-dark" style="background-color: #087990;">
@@ -24,7 +28,118 @@
 <div id="offerDetail">
 
 </div>
+<div class="row">
+    
+<!-- Button trigger modal -->
+<div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <button type="button" class="btn text-white" style="background-color: #0AA2C0 ;" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    
+            Solicitar Visita
+        </button>
+      </div>
+    </div>
+  </div>
 
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="main-container">
+
+                <div class="row text-center pt-4">
+                    <h3>Solicitar Visita</h3>
+                </div>
+                <form class="row g-3 needs-validation" novalidate>                    
+                   <div class="container paddingForm">
+                    <div class="row pt-4">
+                        <div class="col-3">
+                            <label id="nombre" for="validationCustom01" class="form-label">Nombre:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="text" pattern="[a-zA-Z ]{4,50}" class="form-control" id="name" required>
+                            <div class="invalid-feedback">
+                                El campo Nombre es requerido, el Nombre solo puede tener entre 4 a 50
+                    caracteres.
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-3">
+                            <label for="validationCustom01" class="form-label">Correo:</label>
+                        </div>
+                        <div class="col-9">
+                            <input type="email" class="form-control" id="email" required>
+                            <div class="invalid-feedback">
+                                El campo Correo es requerido, el correo debe tener un formato valido de email (Ej:nombre@dominio).
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-3">
+                            <label for="validationCustom01" class="form-label">Telf:</label>
+                        </div>
+                        <div class="col-9">
+                            <input pattern="[0-9 ]{4,25}" type="text" class="form-control" id="telf" required>
+                            <div class="invalid-feedback">
+                                El campo Telf es requerido, el Teléfono solo puede tener entre 4 a 25
+                    caracteres.
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-3">
+                            <label for="validationCustom01" class="form-label">Fecha:</label>
+                        </div>
+                        <div class="col-9">
+                            <input  type="date" class="styleDate" aria-describedby="validateDateFeedback" name="txtDate" id="txtDate">
+                            <div id="validateDateFeedback" class="invalid-feedback">
+                                El campo Fecha es requerido, El dia de reserva no pueden ser fines de semana.
+                              </div>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col-3">
+                            <label for="validationCustom01" class="form-label">Hora:</label>
+                        </div>
+                        <div class="col-9">
+                            <select class="form-control form-select"  id="hour" aria-label=" select example" required>
+                                <option selected disabled value="">Seleccione un horario</option>
+                                <option value="08:00:00">8:00</option>
+                                <option value="10:00:00">10:00</option>
+                                <option value="14:00:00">14:00</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                El campo Hora es requerido.
+                              </div>
+                        </div>
+                    </div>
+                   
+                    
+                   </div>
+                  </form>
+                  <div class="mb-3 mt-3 text-center">
+                    <button id="registerButton" onclick="requestVisit()" class="btn text-white"
+                            style="background-color: #0AA2C0 ;">Confirmar
+                    </button>
+                </div>  
+                </div>
+                </div>
+            
+                
+            </div>
+                        
+          </div>
+        </div>
+      </div>
+</div>
 <script src="./js/serviceOfferDetail.js"></script>
+
 </body>
 </html>

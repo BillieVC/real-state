@@ -26,7 +26,7 @@ public class TableNamesConstants {
             static final String NAME = "properties_department";
         }
 
-        static class Status{
+        static class Status {
             static final String NAME = "properties_status";
         }
 
@@ -51,23 +51,57 @@ public class TableNamesConstants {
 
     static class PhotographsTable {
         static final String NAME = "photographs_table";
-        static class Id{
+
+        static class Id {
             static final String NAME = "photographs_id";
         }
-        static class MimeType{
+
+        static class MimeType {
             static final String NAME = "photographs_mime_type";
         }
-        static class Name{
+
+        static class Name {
             static final String NAME = "photographs_name";
         }
-        static class Size{
+
+        static class Size {
             static final String NAME = "photographs_size";
         }
-        static class Vale{
+
+        static class Vale {
             static final String NAME = "photographs_value";
         }
-        static class Property{
+
+        static class Property {
             static final String NAME = "photographs_property_id";
+        }
+    }
+
+    static class AppointmentsTable {
+        static final String NAME = "appointments_table";
+
+        static class Id {
+            static final String NAME = "appointments_id";
+        }
+
+        static class UserName {
+            static final String NAME = "appointments_user_name";
+        }
+
+        static class UserEmail {
+            static final String NAME = "appointments_user_email";
+        }
+
+        static class UserPhone {
+            static final String NAME = "appointments_user_phone";
+        }
+
+        static class Date {
+            static final String NAME = "appointments_date";
+        }
+
+        static class Property {
+            static final String NAME = "appointments_property_id";
         }
     }
 }
