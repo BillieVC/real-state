@@ -63,7 +63,7 @@
                             <label id="nombre" for="validationCustom01" class="form-label">Nombre:</label>
                         </div>
                         <div class="col-9">
-                            <input type="text" pattern="[a-zA-Z ]{4,50}" class="form-control" id="name" required>
+                            <input type="text" pattern="[a-zA-Z]{4}[a-zA-Z ]{0,46}" class="form-control" id="name" required>
                             <div class="invalid-feedback">
                                 El campo Nombre es requerido, el Nombre solo puede tener entre 4 a 50
                     caracteres.
@@ -86,10 +86,9 @@
                             <label for="validationCustom01" class="form-label">Telf:</label>
                         </div>
                         <div class="col-9">
-                            <input pattern="[0-9 ]{4,25}" type="text" class="form-control" id="telf" required>
+                            <input pattern="[0-9]{8}" type="text" class="form-control" id="telf" required>
                             <div class="invalid-feedback">
-                                El campo Telf es requerido, el Teléfono solo puede tener entre 4 a 25
-                    caracteres.
+                                El campo Telf es requerido, el Teléfono debe tener 8 numero.
                               </div>
                         </div>
                     </div>
@@ -131,8 +130,7 @@
                 </div>  
                 </div>
                 </div>
-            
-                
+                           
             </div>
                         
           </div>

@@ -176,10 +176,21 @@ function addAttributeForMindate(){
     let month = dateToday.getMonth() + 1;
     let day = dateToday.getDate()+1;
     var year = dateToday.getFullYear();
-    if(month < 10)
-    month = '0' + month.toString();
-    if(day < 10){
-        day = '0' + day.toString();
+
+    let daysInMonth = new Date(year,month,0).getDate();
+   
+    if(daysInMonth===day){
+        month = month + 1 ;
+        day = 0; 
+        if(month < 10)
+        month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
+    }else{
+        if(month < 10)
+            month = '0' + month.toString();
+        if(day < 10)
+            day = '0' + day.toString();
     }
     let minDate = year + '-' + month + '-' + day;
     document.getElementById("txtDate").setAttribute("min", minDate);
