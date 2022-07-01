@@ -12,7 +12,6 @@
             integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
             crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/styles.css">
-    <script src="js/validationRegisterProperty.js" defer></script>
     <script src="js/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
     <script src="./js/validationRequestVisit.js" defer></script>
     
@@ -83,11 +82,11 @@
                     </div>
                     <div class="row pt-4">
                         <div class="col-3">
-                            <label for="validationCustom01" class="form-label">Telf:</label>
+                            <label for="validationCustom01" aria-describedby="validateTelfFeedback" class="form-label">Telf:</label>
                         </div>
                         <div class="col-9">
                             <input pattern="[0-9]{8}" type="text" class="form-control" id="telf" required>
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback" id="validateTelfFeedback">
                                 El campo Telf es requerido, el Teléfono debe tener 8 numero.
                               </div>
                         </div>

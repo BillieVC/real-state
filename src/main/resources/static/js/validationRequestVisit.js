@@ -2,7 +2,7 @@ const SATURDAY = 5;
 const SUNDAY = 6;
 document.getElementById("name").addEventListener("input", (event) => {
   let value = event.target.value;
-  event.target.value = value.replace(/[^A-Za-z ]/g, "");
+  event.target.value = value.replace(/[^A-Za-z ]/g, "").trimStart();
 });
 document.getElementById("telf").addEventListener("input", (event) => {
   let value = event.target.value;
@@ -10,7 +10,7 @@ document.getElementById("telf").addEventListener("input", (event) => {
 });
 document.getElementById("email").addEventListener("input", (event) => {
   let value = event.target.value;
-  event.target.value = value.replace(/[^A-Za-z0-9_.@]/g, "");
+  event.target.value = value.replace(/[^A-Za-z0-9_.@]/g, "").trimStart();
   
 });
 document.getElementById("txtDate").addEventListener("input", () => {
@@ -22,8 +22,8 @@ document.getElementById("txtDate").addEventListener("input", () => {
     var forms = document.querySelectorAll('.needs-validation')
     Array.prototype.slice.call(forms)
         .forEach(function (form) {
-            if (!form.checkValidity()||theDateIsWeekendOrNull()) {
-              flag=false;
+            if (!form.checkValidity()) {
+              validated=false;
             }
             form.classList.add('was-validated')
         })
@@ -32,8 +32,8 @@ document.getElementById("txtDate").addEventListener("input", () => {
       
       let dateAndTime = document.getElementById("txtDate").value + "T" + document.getElementById("hour").value;     
       let jsonRequestVisit = {
-        userName: document.getElementById("name").value,
-        userEmail:  document.getElementById("email").value,
+        userName: document.getElementById("name").value.trim(),
+        userEmail:  document.getElementById("email").value.trim(),
         userPhone: document.getElementById("telf").value,
         date: dateAndTime
       }
