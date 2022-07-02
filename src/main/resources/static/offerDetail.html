@@ -37,6 +37,9 @@
     
             Solicitar Visita
         </button>
+        <button type="button" class="btn text-white" style="background-color: #676767 ;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+          Visitas Agendadas
+         </button>
       </div>
     </div>
   </div>
@@ -135,8 +138,40 @@
           </div>
         </div>
       </div>
+      <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title text-center" id="exampleModalLabel"></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <h4 class="text-center">Visitas Solicitadas</h4>
+            <div class="modal-body">
+                <table class="table table-striped" id="listRequestVisitTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Numero</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Hora</th>
+                        
+                      </tr>
+                    </thead>
+                    
+                </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 <script src="./js/serviceOfferDetail.js"></script>
+<script src="./js/visitRequestList.js"></script>
 
 </body>
 </html>
