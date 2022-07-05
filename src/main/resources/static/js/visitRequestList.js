@@ -15,7 +15,7 @@ let visitRequestList = async function getVisitRequestList(propertyId) {
 async function getListFromDataBase() {
     let visitListJsonFormat = await visitRequestList(propertyId);
     createVisitRequestList(visitListJsonFormat.appointmentDtoList);
-};
+}
 
 function getHeaders() {
     return {
@@ -35,7 +35,7 @@ function createVisitRequestList(List){
           let time = hour.split(".");
           let hourWithoutSeconds = time[0]; 
         document.getElementById("listRequestVisitTable").innerHTML += '<tr>'+
-                                                    '<th scope="row">'+element.id+'</th>'+
+                                                    '<th scope="row">'+(index+1)+'</th>'+
                                                     '<td>'+element.userName+'</td>'+
                                                     '<td>'+element.userEmail+'</td>'+
                                                     '<td>'+element.userPhone+'</td>'+

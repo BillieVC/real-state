@@ -12,6 +12,7 @@ public class AppointmentDto {
     private Long id;
     private String userName;
     private String userEmail;
+    private Long userPhone;
     private Date date;
     private Property property;
 }
