@@ -12,7 +12,7 @@ let property = async function getProperty(id) {
 }
 
 window.onload = async function () {
-    if (!urlParams.get(id)) {
+    if (!id) {
         document.getElementById('offerDetail').innerHTML =
             `<div class="row justify-content-center""> 
                 <div class="col justify-content-center">
@@ -47,16 +47,13 @@ function getSinglePhoto(property) {
 async function buildDetail(property) {
     let photoSources = getPhotoSources(property);
     let images = createImgElements(photoSources);
-    let detail;
     if (photoSources.length > 1) {
         let indicators = createCarouselIndicators(photoSources);
         let carousel = getCarouselElement(images, indicators);
-        detail = createDetail(property, carousel);
+        createDetail(property, carousel);
     } else {
-        detail = createDetail(property, getSinglePhoto(property));
+        createDetail(property, getSinglePhoto(property));
     }
-    let element = document.getElementById("offerDetail");
-    element.innerHTML = `${detail}`;
 }
 
 function createImgElements(photoSources) {
@@ -105,40 +102,14 @@ function getCarouselElement(images, indicators) {
 }
 
 function createDetail(property, propertyPhotos) {
-    return '<h3 class="text-center pt-5">' + property.propertyDto.title + '</h3>' +
-        '<div class="container pt-5">' +
-        '    <div class="row pt-5">' +
-        '        <div class="col-md-6 col-sm-8 pt-2 text-center">' +
-
-        '               <div class="row w-100 d-flex justify-content-center position-relative">' + `
-                          
-                            ${propertyPhotos}` +
-        '                   <a class="position-absolute top-0 start-100 translate-middle" >' +
-        '                   <img src="../assets/images/Icon_camera.png" class="me-5 imgEye" title="Agregar fotos" onclick="redirectToPageFormUploadImages(' + id + ')" alt="icon-eye"></a>' +
-        '               </div> ' +
-        '            <div class="row"><h5 class="text-center text-muted">' + property.propertyDto.zone + '/' + property.propertyDto.propertyDepartment.replace("_", " ") + '</h5> </div>  ' +
-
-        '        </div>' +
-        '            <div class="col-md-6 col-sm-8 pt-2 ">' +
-        '            <div class="row">' +
-        '                <div class="col-4"><h5>Precio:</h5></div>' +
-        '                <div class="col-8">' + property.propertyDto.price + ' Bs.</div>' +
-        '            </div>' +
-        '            <div class="row">' +
-        '                <div class="col-4"><h5>Descripción:</h5></div>' +
-        '                <div class="col-8">' + property.propertyDto.description + '</div>' +
-        '            </div>   ' +
-        '            <div class="row">' +
-        '                <div class="col-4"><h5>Tipo de Imnueble:</h5></div>' +
-        '                <div class="col-8">' + property.propertyDto.propertyType.replace("_", " ") + '</div>' +
-        '            </div>   ' +
-        '            <div class="row">' +
-        '                <div class="col-4"><h5>Dirección:</h5></div>' +
-        '                <div class="col-8">' + property.propertyDto.address + '</div>' +
-        '            </div>' +
-        '        </div>' +
-        '    </div>' +
-        '</div>';
+    document.getElementById('photos-container').innerHTML = propertyPhotos;
+    document.getElementById('property-title').innerText = property.propertyDto.title;
+    document.getElementById('property-zone-city').innerText =
+        property.propertyDto.zone + '/' + property.propertyDto.propertyDepartment.replace("_", " ");
+    document.getElementById('property-price').innerText = property.propertyDto.price + ' Bs.';
+    document.getElementById('property-description').innerText = property.propertyDto.description;
+    document.getElementById('property-type').innerText = property.propertyDto.propertyType.replace("_", " ");
+    document.getElementById('property-address').innerText = property.propertyDto.address;
 }
 
 function getPhotoSources(property) {
@@ -160,7 +131,7 @@ function getPhotoSources(property) {
     return photosSrc;
 }
 
-function redirectToPageFormUploadImages(id) {
+function redirectToPageFormUploadImages() {
     window.location.href = "formUploadImages.html?id=" + id;
 }
 
