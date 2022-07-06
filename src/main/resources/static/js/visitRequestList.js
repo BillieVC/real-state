@@ -4,17 +4,16 @@ urlParams = new URLSearchParams(queryString);
 propertyId = urlParams.get('id');
 
 let visitRequestList = async function getVisitRequestList(propertyId) {
-    let request = await  fetch('/appointments/' + propertyId, {
+    let requestVisitsByPropertyId = await  fetch('/appointments/' + propertyId, {
         method: 'GET',
         headers: getHeaders()
     });
-    return await request.json();
+    return await requestVisitsByPropertyId.json();
 }
 
 
 async function getListFromDataBase() {
     let visitListJsonFormat = await visitRequestList(propertyId);
-    console.log(visitListJsonFormat.appointmentDtoList.length);
     if (visitListJsonFormat.appointmentDtoList.length===0) {
         document.getElementById("listRequestVisitTable")
         .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen Visitas Agendadas para mostrar</h1>"
@@ -30,11 +29,9 @@ function getHeaders() {
     };
 }
 
-getListFromDataBase();
-
-function createVisitRequestList(List){
-    for (let index = 0; index < List.length; index++) {
-          let element = List[index];  
+function createVisitRequestList(registeredVisitsList){
+    for (let index = 0; index < registeredVisitsList.length; index++) {
+          let element = registeredVisitsList[index];
           let dateAndHour = element.date.split(SEPARATOR);
           let date = dateAndHour[0];
           let hour = dateAndHour[1];
