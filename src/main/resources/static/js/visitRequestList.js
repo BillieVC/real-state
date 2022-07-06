@@ -14,7 +14,13 @@ let visitRequestList = async function getVisitRequestList(propertyId) {
 
 async function getListFromDataBase() {
     let visitListJsonFormat = await visitRequestList(propertyId);
+    console.log(visitListJsonFormat.appointmentDtoList.length);
+    if (visitListJsonFormat.appointmentDtoList.length===0) {
+        document.getElementById("listRequestVisitTable")
+        .innerHTML = "<h1 class='pt-5 text-center' id='msg-no-props'>No existen Visitas Agendadas para mostrar</h1>"
+    }  else{
     createVisitRequestList(visitListJsonFormat.appointmentDtoList);
+    }
 }
 
 function getHeaders() {
